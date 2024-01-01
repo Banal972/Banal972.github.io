@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.17a8f042.css",
+    "main.css": "/static/css/main.61009ab7.css",
     "main.js": "/static/js/main.ee6c75fb.js",
     "static/js/787.ccb6baa8.chunk.js": "/static/js/787.ccb6baa8.chunk.js",
     "static/media/music01.mp3": "/static/media/music01.6c0d048e76e2de9b2c8e.mp3",
@@ -18,12 +18,12 @@
     "static/media/Evogria-Italic.woff2": "/static/media/Evogria-Italic.8e31f53bb782b37a482d.woff2",
     "static/media/Evogria.woff2": "/static/media/Evogria.502c6d495fc7fef3531a.woff2",
     "index.html": "/index.html",
-    "main.17a8f042.css.map": "/static/css/main.17a8f042.css.map",
+    "main.61009ab7.css.map": "/static/css/main.61009ab7.css.map",
     "main.ee6c75fb.js.map": "/static/js/main.ee6c75fb.js.map",
     "787.ccb6baa8.chunk.js.map": "/static/js/787.ccb6baa8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.17a8f042.css",
+    "static/css/main.61009ab7.css",
     "static/js/main.ee6c75fb.js"
   ]
 }
