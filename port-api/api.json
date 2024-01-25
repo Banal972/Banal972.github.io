@@ -1,0 +1,68 @@
+{
+    "data" : [
+        {
+            "id" : 1,
+            "img" : "https://banal972.github.io/port-api/port-img/p01_adm.png",
+            "title" : "Admin Page",
+            "desc" : "리액트 토이프로젝트 Admin App 입니다.",
+            "skill" : ["React","Redux","Figma"],
+            "link" : [
+                {
+                    "name" : "github",
+                    "link" : "https://github.com/Banal972/p01_adm"
+                },
+                {
+                    "name" : "demo",
+                    "link" : "https://banal972.github.io/p01_adm/"
+                }
+            ]
+        },
+        {
+            "id" : 2,
+            "img" : "https://banal972.github.io/port-api/port-img/p02_vid.png",
+            "title" : "OTT",
+            "desc" : "Vue 토이프로젝트이며 YoutubeAPI와 연동해서 제작하였습니다.",
+            "skill" : ["Vue","Vuex","Figma","YoutubeAPI"],
+            "link" : [
+                {
+                    "name" : "github",
+                    "link" : "https://github.com/Banal972/p02_vid"
+                },
+                {
+                    "name" : "demo",
+                    "link" : "https://banal972.github.io/p02_vid/"
+                }
+            ]
+        },
+        {
+            "id" : 3,
+            "img" : "https://banal972.github.io/port-api/port-img/p03_shop.png",
+            "title" : "Shopping mall",
+            "desc" : "React 토이프로젝트로 Typescript 와 Reudx을 이용해서 제작하였습니다.",
+            "skill" : ["React","Typescript","Redux"],
+            "link" : [
+                {
+                    "name" : "github",
+                    "link" : "https://github.com/Banal972/p03_shopping"
+                },
+                {
+                    "name" : "demo",
+                    "link" : "https://banal972.github.io/p03_shopping/"
+                }
+            ]
+        },
+        {
+            "id" : 4,
+            "img" : "https://banal972.github.io/port-api/port-img/publish.jpg",
+            "title" : "ITDDAA",
+            "desc" : "잇다소프트 근무 당시에 진행한 프로젝트들 입니다.",
+            "skill" : ["HTML,Jquey,SCSS,JavaScript,PHP"],
+            "link" : [
+                {
+                    "name" : "Notion",
+                    "link" : "https://broken972.notion.site/2f36213ddd6d47d2a2572bc4e43bfef3?pvs=4"
+                }
+            ]
+        }
+    ]
+}
