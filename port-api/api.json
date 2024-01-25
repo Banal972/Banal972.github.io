@@ -55,7 +55,7 @@
         "img" : "https://banal972.github.io/port-api/port-img/publish.jpg",
         "title" : "ITDDAA",
         "desc" : "잇다소프트 근무 당시에 진행한 프로젝트들 입니다.",
-        "skill" : ["HTML,Jquey,SCSS,JavaScript,PHP"],
+        "skill" : ["HTML","Jquey","SCSS","JavaScript","PHP"],
         "link" : [
             {
                 "name" : "Notion",
