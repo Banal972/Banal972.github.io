@@ -37,8 +37,8 @@
         "id" : 3,
         "img" : "https://banal972.github.io/port-api/port-img/p03_shop.png",
         "title" : "Shopping mall",
-        "desc" : "React 토이프로젝트로 Typescript 와 Reudx을 이용해서 제작하였습니다.",
-        "skill" : ["React","Typescript","Redux"],
+        "desc" : "React 토이프로젝트로 Typescript 와 Recoil을 이용해서 제작하였습니다.",
+        "skill" : ["React","Typescript","Recoil"],
         "link" : [
             {
                 "name" : "github",
