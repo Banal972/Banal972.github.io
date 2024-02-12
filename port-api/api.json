@@ -52,6 +52,23 @@
     },
     {
         "id" : 4,
+        "img" : "https://banal972.github.io/port-api/port-img/memo.png",
+        "title" : "Memo",
+        "desc" : "React 와 TypeScript, Recoil, CSS In JS 을 사용하여 투두리스트를 구축하였습니다.",
+        "skill" : ["React","Typescript","Recoil","Styled-components"],
+        "link" : [
+            {
+                "name" : "github",
+                "link" : "https://github.com/Banal972/memo"
+            },
+            {
+                "name" : "demo",
+                "link" : "https://banal972.github.io/memo/"
+            }
+        ]
+    },
+    {
+        "id" : 5,
         "img" : "https://banal972.github.io/port-api/port-img/publish.jpg",
         "title" : "ITDDAA",
         "desc" : "잇다소프트 근무 당시에 진행한 프로젝트들 입니다.",
