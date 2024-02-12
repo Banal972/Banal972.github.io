@@ -7,11 +7,11 @@
         "skill" : ["React","Redux","Figma"],
         "link" : [
             {
-                "name" : "github",
+                "name" : "Github",
                 "link" : "https://github.com/Banal972/p01_adm"
             },
             {
-                "name" : "demo",
+                "name" : "Demo",
                 "link" : "https://banal972.github.io/p01_adm/"
             }
         ]
@@ -24,11 +24,11 @@
         "skill" : ["Vue","Vuex","Figma","YoutubeAPI"],
         "link" : [
             {
-                "name" : "github",
+                "name" : "Github",
                 "link" : "https://github.com/Banal972/p02_vid"
             },
             {
-                "name" : "demo",
+                "name" : "Demo",
                 "link" : "https://banal972.github.io/p02_vid/"
             }
         ]
@@ -41,11 +41,11 @@
         "skill" : ["React","Typescript","Recoil"],
         "link" : [
             {
-                "name" : "github",
+                "name" : "Github",
                 "link" : "https://github.com/Banal972/p03_shopping"
             },
             {
-                "name" : "demo",
+                "name" : "Demo",
                 "link" : "https://banal972.github.io/p03_shopping/"
             }
         ]
@@ -58,11 +58,11 @@
         "skill" : ["React","Typescript","Recoil","Styled-components"],
         "link" : [
             {
-                "name" : "github",
+                "name" : "Github",
                 "link" : "https://github.com/Banal972/memo"
             },
             {
-                "name" : "demo",
+                "name" : "Demo",
                 "link" : "https://banal972.github.io/memo/"
             }
         ]
@@ -77,6 +77,10 @@
             {
                 "name" : "Notion",
                 "link" : "https://broken972.notion.site/2f36213ddd6d47d2a2572bc4e43bfef3?pvs=4"
+            },
+            {
+                "name" : "Demo",
+                "link" : "https://kjy-publish-list.du.r.appspot.com/"
             }
         ]
     }
