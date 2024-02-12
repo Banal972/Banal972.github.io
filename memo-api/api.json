@@ -1,0 +1,40 @@
+{
+    "memo" : [
+        {
+            "id" : 9998,
+            "color" : "purple",
+            "title" : "안녕하세요 메모사이트 입니다.",
+            "desc" : "본 사이트는 포트폴리오 전용으로 제작되었습니다.",
+            "list" : [
+                {
+                    "listId" : 1,
+                    "chk" : true,
+                    "target" : "배포하기"
+                },
+                {
+                    "listId" : 2,
+                    "chk" : true,
+                    "target" : "업데이트 하기"
+                }
+            ]
+        },
+        {
+            "id" : 9999,
+            "color" : "orange",
+            "title" : "사용법",
+            "desc" : "작성시 할일에서 Enter키를 누르면 여러개를 등록할수 있어요!",
+            "list" : [
+                {
+                    "listId" : 1,
+                    "chk" : false,
+                    "target" : "할일 여러개 체크해보기"
+                },
+                {
+                    "listId" : 2,
+                    "chk" : false,
+                    "target" : "할일 여러개 추가해보기"
+                }
+            ]
+        }
+    ]
+}
