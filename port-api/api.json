@@ -3,8 +3,8 @@
         "id" : 1,
         "img" : "https://banal972.github.io/port-api/port-img/KJY_Dev.jpg",
         "title" : "KJY.Dev",
-        "desc" : "React, AJAX, Figma, Sass, Styled-components 를 이용해서 메인 포트폴리오 페이지를 구축하였습니다.",
-        "skill" : ["React", "AJAX", "Figma", "Sass", "Styled-components"],
+        "desc" : "React, Typescript, AJAX, Figma, Sass, Styled-components 를 이용해서 메인 포트폴리오 페이지를 구축하였습니다.",
+        "skill" : ["React", "Typescript", "AJAX", "Figma", "Sass", "Styled-components"],
         "link" : [
             {
                 "name" : "Github",
@@ -21,7 +21,7 @@
         "img" : "https://banal972.github.io/port-api/port-img/p01_adm.png",
         "title" : "Admin Page",
         "desc" : "React, Redux, Figma 를 이용해서 관리자 페이지를 구축하였습니다.",
-        "skill" : ["React","Redux","Figma"],
+        "skill" : ["React", "Redux", "Figma"],
         "link" : [
             {
                 "name" : "Github",
