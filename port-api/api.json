@@ -1,9 +1,26 @@
 [
     {
         "id" : 1,
+        "img" : "https://banal972.github.io/port-api/port-img/KJY_Dev.jpg",
+        "title" : "KJY.Dev",
+        "desc" : "React, AJAX, Figma, Sass, Styled-components 를 이용해서 메인 포트폴리오 페이지를 구축하였습니다.",
+        "skill" : ["React", "AJAX", "Figma", "Sass", "Styled-components"],
+        "link" : [
+            {
+                "name" : "Github",
+                "link" : "https://github.com/Banal972/kjy-portfolio"
+            },
+            {
+                "name" : "Demo",
+                "link" : "https://banal972.github.io/"
+            }
+        ]
+    },
+    {
+        "id" : 2,
         "img" : "https://banal972.github.io/port-api/port-img/p01_adm.png",
         "title" : "Admin Page",
-        "desc" : "리액트 토이프로젝트 Admin App 입니다.",
+        "desc" : "React, Redux, Figma 를 이용해서 관리자 페이지를 구축하였습니다.",
         "skill" : ["React","Redux","Figma"],
         "link" : [
             {
@@ -17,10 +34,10 @@
         ]
     },
     {
-        "id" : 2,
+        "id" : 3,
         "img" : "https://banal972.github.io/port-api/port-img/p02_vid.png",
         "title" : "OTT",
-        "desc" : "Vue 토이프로젝트이며 YoutubeAPI와 연동해서 제작하였습니다.",
+        "desc" : "Vue 토이프로젝트이며 YoutubeAPI와 연동해서 구축하였습니다.",
         "skill" : ["Vue","Vuex","Figma","YoutubeAPI"],
         "link" : [
             {
@@ -34,10 +51,10 @@
         ]
     },
     {
-        "id" : 3,
+        "id" : 4,
         "img" : "https://banal972.github.io/port-api/port-img/p03_shop.png",
         "title" : "Shopping mall",
-        "desc" : "React 토이프로젝트로 Typescript 와 Recoil을 이용해서 제작하였습니다.",
+        "desc" : "React 토이프로젝트로 Typescript 와 Recoil을 이용해서 구축하였습니다.",
         "skill" : ["React","Typescript","Recoil"],
         "link" : [
             {
@@ -51,7 +68,7 @@
         ]
     },
     {
-        "id" : 4,
+        "id" : 5,
         "img" : "https://banal972.github.io/port-api/port-img/memo.jpg",
         "title" : "Memo",
         "desc" : "React 와 TypeScript, Recoil, CSS In JS 을 사용하여 투두리스트를 구축하였습니다.",
@@ -68,7 +85,7 @@
         ]
     },
     {
-        "id" : 5,
+        "id" : 6,
         "img" : "https://banal972.github.io/port-api/port-img/publish.jpg",
         "title" : "ITDDAA",
         "desc" : "잇다소프트 근무 당시에 진행한 프로젝트들 입니다.",
