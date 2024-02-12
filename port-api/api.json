@@ -52,7 +52,7 @@
     },
     {
         "id" : 4,
-        "img" : "https://banal972.github.io/port-api/port-img/memo.png",
+        "img" : "https://banal972.github.io/port-api/port-img/memo.jpg",
         "title" : "Memo",
         "desc" : "React 와 TypeScript, Recoil, CSS In JS 을 사용하여 투두리스트를 구축하였습니다.",
         "skill" : ["React","Typescript","Recoil","Styled-components"],
