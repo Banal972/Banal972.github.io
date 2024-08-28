@@ -3,3 +3,5 @@ Disallow: /about
 
 # Allow all other pages
 Allow: /
+
+Sitemap: https://banal972.github.io/sitemap.xml
