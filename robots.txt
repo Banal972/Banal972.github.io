@@ -1,7 +1,9 @@
+# *
 User-agent: *
 Disallow: /about
 
-# Allow all other pages
-Allow: /
+# Host
+Host: https://banal972.github.io
 
-Sitemap: https://banal972.github.io/
+# Sitemaps
+Sitemap: https://banal972.github.io/sitemap.xml
