@@ -5,8 +5,8 @@ categories: [Discover, functional-programming]
 tags: [Discover]
 ---
 
-#### 이 문서를 읽기전에
-[함수형 프로그래밍 입문기](/post/functional-programming-0912)를 읽어보는것을 추천드립니다.
+<!-- #### 이 문서를 읽기전에
+[함수형 프로그래밍 입문기](/post/functional-programming-0912)를 읽어보는것을 추천드립니다. -->
 
 
 ### 어떤것이 함수형 프로그래밍일까?
