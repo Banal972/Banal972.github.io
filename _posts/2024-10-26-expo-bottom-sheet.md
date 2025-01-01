@@ -8,7 +8,7 @@ tags: [Discover]
 ### bottom-sheet
 
 RN 프로젝트를 진행하면서 
-![241026-030834](/posts/expo-bottom-sheet/241026-030834.png)
+<!-- ![241026-030834](/posts/expo-bottom-sheet/241026-030834.png) -->
 해당 UI를 구성을 하게 되었고 제스처를 통해서 움직임을 줘야했습니다.
 
 
@@ -53,7 +53,7 @@ const App = ()=>{
 Ref도 꼭 연결해야 합니다.
 
 ### BottomSheet 위에 따라다니는 버튼 만들기
-![241026-030741](/posts/expo-bottom-sheet/241026-030741.png)
+<!-- ![241026-030741](/posts/expo-bottom-sheet/241026-030741.png) -->
 이 이미지처럼 위에 따라다니는 버튼이 필요했습니다.
 
 검색을 해도 잘 나오지 않고 여러번 해매다가 겨우 방법을 찾았습니다.

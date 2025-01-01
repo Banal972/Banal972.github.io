@@ -21,7 +21,7 @@ navigator라는 프로퍼티 안에 geolocation을 사용하면 됩니다.
 
 navigator.geolocation을 사용하게 되면 해당 사이트에 접속할 때
 
-![241019-041058](/posts/geolocation-api/241019-041058.png)
+<!-- ![241019-041058](/posts/geolocation-api/241019-041058.png) -->
 
 이렇게 사용자에게 요청을 하게 됩니다.
 
@@ -196,7 +196,7 @@ export default function App() {
 }
 ```
 
-![241019-041128](/posts/geolocation-api/241019-041128.png)
+<!-- ![241019-041128](/posts/geolocation-api/241019-041128.png) -->
 
 그러면 현재위치를 가져올 수 있게 됩니다.
 

@@ -5,7 +5,7 @@ categories: [BLOG]
 tags: [BLOG]
 ---
 
-![240914-133232](/posts/pre-onboarding-2024-03/240914-133232.png)
+<!-- ![240914-133232](/posts/pre-onboarding-2024-03/240914-133232.png) -->
 
 ### 참여하게 된 계기
 
