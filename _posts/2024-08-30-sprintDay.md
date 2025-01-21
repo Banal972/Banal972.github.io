@@ -1,8 +1,8 @@
 ---
 title: 코드잇 단기 부트캠프를 수료하면서
 date: 2024-08-30
-categories: [BLOG]
-tags: [BLOG]
+categories: [Blog]
+tags: [Blog]
 ---
 
 ### 개요

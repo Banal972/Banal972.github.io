@@ -2,7 +2,7 @@
 title: 바닐라 자바스크립트로 React Input 이벤트 Trigger 하기
 date: 2025-01-01
 categories: [Discover, Javascript]
-tags: [Discover]
+tags: [Discover,Javascript]
 ---
 
 ### 문제

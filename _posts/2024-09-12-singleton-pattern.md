@@ -1,8 +1,8 @@
 ---
 title: 싱글턴 패턴 과 Zustand
 date: 2024-09-12
-categories: [Discover,design-pattren]
-tags: [Discover]
+categories: [Discover,React]
+tags: [Discover,React,Design-pattren]
 ---
 
 ### 개요

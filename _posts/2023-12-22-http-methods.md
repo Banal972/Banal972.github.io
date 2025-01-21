@@ -1,8 +1,8 @@
 ---
 title: HTTP 메서드에 대해서
 date: 2023-12-22
-categories: [Discover, etc]
-tags: [Discover]
+categories: [Etc]
+tags: [Etc]
 ---
 
 ### HTTP 메서드에 대해서
@@ -42,7 +42,7 @@ GET는 특정한 리소스를 가져올때 사용됩니다.
 
 GET 요청은 멱등성을 지니고 있습니다.
 
-<div style={{backgroundColor : "#fff", padding : 12, border : "1px solid #ddd", fontSize : 14}}>***멱등성***
+<div style={backgroundColor : "#fff", padding : 12, border : "1px solid #ddd", fontSize : 14}>***멱등성***
 멱등성은 동일한 요청을 한 번 보내는 것과 여러 번 연속으로 보내는 것이 같은 효과를 지니고, 서버의 상태도 동일하게 남은 상태를 의미 합니다.</div>
 
 GET요청으로 서버에게 데이터를 전달할 경우엔 쿼리스트링을 사용합니다.

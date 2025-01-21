@@ -1,8 +1,8 @@
 ---
 title: 원티드 프리온보딩 프론트엔드 챌린지 3월 후기
 date: 2024-03-24
-categories: [BLOG]
-tags: [BLOG]
+categories: [Blog]
+tags: [Blog]
 ---
 
 <!-- ![240914-133232](/posts/pre-onboarding-2024-03/240914-133232.png) -->

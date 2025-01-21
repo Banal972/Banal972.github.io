@@ -1,8 +1,8 @@
 ---
 title: 함수형 프로그래밍 - (2)
 date: 2024-10-02
-categories: [Discover, functional-programming]
-tags: [Discover]
+categories: [Discover, Functional-programming]
+tags: [Discover,Functional-programming]
 ---
 
 <!-- #### 이 문서를 읽기전에

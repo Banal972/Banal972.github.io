@@ -1,8 +1,8 @@
 ---
 title: Next.js에서 cors 우회 하는 법
 date: 2024-06-19
-categories: [Discover, nextjs]
-tags: [Discover]
+categories: [Discover, Nextjs]
+tags: [Discover,Nextjs]
 ---
 
 #### 개요

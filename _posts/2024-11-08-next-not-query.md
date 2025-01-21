@@ -1,8 +1,8 @@
 ---
 title: Next.js에서 React-Query를 사용하지 않아도 되는 이유
 date: 2024-11-08
-categories: [Discover, nextjs]
-tags: [Discover]
+categories: [Discover, Nextjs]
+tags: [Discover,Nextjs]
 ---
 
 ### 개요

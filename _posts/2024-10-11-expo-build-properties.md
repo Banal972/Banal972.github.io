@@ -1,8 +1,8 @@
 ---
 title: expo-build-properties를 이용한 expo 빌드 최적화
 date: 2024-10-11
-categories: [Discover, native]
-tags: [Discover]
+categories: [Discover, Native]
+tags: [Discover,Native,Expo]
 ---
 
 #### 개요

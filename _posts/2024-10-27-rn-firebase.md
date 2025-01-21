@@ -1,8 +1,8 @@
 ---
 title: expo에서 firebase sdk가 아닌 native-firebase 설치 이슈
 date: 2024-10-27
-categories: [Discover, native]
-tags: [Discover]
+categories: [Discover, Native]
+tags: [Discover,Native,Expo]
 ---
 
 ### 개요

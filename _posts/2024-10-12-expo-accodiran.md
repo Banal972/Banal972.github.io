@@ -1,8 +1,8 @@
 ---
 title: Expo에서 아코디언을 만들어보자
 date: 2024-10-12
-categories: [Discover, native]
-tags: [Discover]
+categories: [Discover, Native]
+tags: [Discover,Native,Expo]
 ---
 
 #### 개요
