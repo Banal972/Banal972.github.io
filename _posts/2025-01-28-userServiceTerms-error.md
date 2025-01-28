@@ -22,11 +22,11 @@ value of type 'UserServiceTerms' has no member 'id' Refer to "Xcode Logs" below 
 
 Expo에서 prebuild를 통해서 카카오 로그인을 개발할때 app.js 혹은 app.config.js에서 설정을 할 수 있는데
 
-```
+```json
 [
 "@react-native-seoul/kakao-login",
     {
-        "kakaoAppKey": "{{kakao api key}}",
+        "kakaoAppKey": "kakao api key",
         "overrideKakaoSDKVersion": "2.11.2", // Optional, 
         "kotlinVersion": "1.9.0" // #392
     }
