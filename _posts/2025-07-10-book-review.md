@@ -1,13 +1,13 @@
 ---
-title: 코딩 자율학습 \n 컴퓨터 구조와 운영체제 리뷰
+title: 코딩 자율학습 - 컴퓨터 구조와 운영체제 리뷰
 date: 2025-07-10
 categories: [Books]
 tags: [Books]
 ---
 
-<img src="/assets/img/post/2025-07-10-book-review/IMG_7632.jpg" alt="" width="400" />
-
-#### 
+<div style="text-align: left;">
+    <img src="/assets/img/post/2025-07-10-book-review/IMG_7632.jpg" alt="" width="500" />
+</div>
 
 우연한 기회로 길벗출판사의 <코딩 자율학습_컴퓨터 구조와 운영 체제>를 제공받아 읽어보게 되었습니다.
 
@@ -17,6 +17,10 @@ tags: [Books]
 하나의 책을 처음부터 끝까지 읽는다는 느낌보다는 코딩을 하면서 궁금했던 용어나 원리들을 그때그때 찾아볼 때 특히 유용하다고 느꼈습니다ㅎㅎ
 
 저도 틈날 때마다 책을 펼쳐보며 기초 이론을 탄탄히 다져볼 것 같네요.
+
+<div style="text-align: left;">
+    <img src="/assets/img/post/2025-07-10-book-review/IMG_7633.jpg" alt="" width="500" />
+</div>
 
 이 책은 이런 분들께 반드시 추천드립니다.
 
@@ -33,5 +37,3 @@ tags: [Books]
 이 시리즈를 닳도록 읽고 복습한다면 원리를 정확하게 이해하고 면접장에서도 술술 대답할 줄 아는 사람이 되지 않을까 싶습니다~!
 
 이번 기회를 계기로 저도 이 책을 주변의 개발자를 꿈꾸는 친구들부터 현직에서 개발일을 열심히 하고 있는 친구들에게도 권해봐야겠습니다:)
-
-<img src="/assets/img/post/2025-07-10-book-review/IMG_7633.jpg" alt="" width="400" />
