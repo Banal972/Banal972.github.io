@@ -12,7 +12,7 @@ export const SITE = {
     avatar: "/assets/img/profile.jpg",
     github: "https://github.com/Banal972",
   },
-  postsPerPage: 12,
+  postsPerPage: 10, // Chirpy 의 paginate 값과 동일 — /page2/~/page4/ 를 그대로 유지하기 위함
 } as const;
 
 /** 사이트 검증 코드 (Chirpy `_includes/head.html` 에서 그대로 옮겨옴) */

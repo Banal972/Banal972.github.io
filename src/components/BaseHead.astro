@@ -46,12 +46,12 @@ const showAds = import.meta.env.PROD;
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png" />
 <link rel="apple-touch-icon" href="/assets/img/favicons/apple-touch-icon.png" />
 <link rel="manifest" href="/assets/img/favicons/site.webmanifest" />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" href="/sitemap.xml" />
 <link
   rel="alternate"
   type="application/rss+xml"
   title={`${SITE.title} RSS`}
-  href={new URL('rss.xml', Astro.site)}
+  href={new URL('feed.xml', Astro.site)}
 />
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />

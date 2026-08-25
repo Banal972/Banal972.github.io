@@ -55,5 +55,5 @@ pin: false # true 면 홈 상단 고정
 
 ## 배포
 
-`.github/workflows/deploy.yml` 는 현재 **수동 실행(workflow_dispatch)** 만 열려 있습니다.
-전환 준비가 끝나면 `push` 트리거 주석을 풀면 master 푸시마다 자동 배포됩니다.
+`master` 에 푸시하면 `.github/workflows/deploy.yml` 이 빌드해서 GitHub Pages 로 배포합니다.
+Pages 소스는 "GitHub Actions" 입니다 (브랜치 직접 배포 아님).

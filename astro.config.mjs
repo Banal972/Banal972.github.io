@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import remarkCjkFriendly from 'remark-cjk-friendly';
 
@@ -12,8 +11,6 @@ export default defineConfig({
   // directory + always 조합이라야 기존 링크가 리다이렉트 없이 살아난다.
   trailingSlash: 'always',
   build: { format: 'directory' },
-
-  integrations: [sitemap()],
 
   markdown: {
     // Astro 7 기본 엔진(Sätteri)은 CommonMark 를 엄격히 따라

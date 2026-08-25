@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
 
     <nav class="links" aria-label="푸터 메뉴">
       {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
-      <a href="/rss.xml">RSS</a>
+      <a href="/feed.xml">RSS</a>
     </nav>
 
     <p class="copy">© {year} {SITE.author.name}. Built with Astro.</p>

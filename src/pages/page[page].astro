@@ -12,7 +12,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const all = withPinned(await getPosts());
   const totalPages = Math.max(1, Math.ceil(all.length / SITE.postsPerPage));
 
-  // 1페이지는 홈(`/`)이 담당한다. Chirpy 의 `/page/2/` 규칙을 그대로 이어받는다.
+  // 1페이지는 홈(`/`)이 담당한다. Chirpy 의 `/page2/` 주소 형식을 그대로 이어받는다.
   return Array.from({ length: totalPages - 1 }, (_, i) => {
     const page = i + 2;
     return {

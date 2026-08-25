@@ -1,23 +1,3 @@
-import rss from '@astrojs/rss';
-import type { APIRoute } from 'astro';
-
-import { SITE } from '~/consts';
-import { excerpt, getPosts, postUrl } from '~/lib/posts';
-
-export const GET: APIRoute = async (context) => {
-  const posts = await getPosts();
-
-  return rss({
-    title: `${SITE.title} — ${SITE.tagline}`,
-    description: SITE.description,
-    site: context.site ?? SITE.url,
-    items: posts.map((post) => ({
-      title: post.data.title,
-      pubDate: post.data.date,
-      description: excerpt(post, 200),
-      link: postUrl(post),
-      categories: [...post.data.categories, ...post.data.tags],
-    })),
-    customData: `<language>ko</language>`,
-  });
-};
+// Chirpy 시절 피드 주소는 `/feed.xml` 이라 그쪽이 정식이다.
+// `/rss.xml` 은 흔히 시도되는 주소라 같은 내용을 함께 서빙한다.
+export { GET } from './feed.xml';

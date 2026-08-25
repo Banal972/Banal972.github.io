@@ -2,13 +2,13 @@
 interface Props {
   current: number;
   total: number;
-  /** 1페이지 경로. 2페이지부터는 `${base}page/N/` 로 나간다. */
+  /** 1페이지 경로. 2페이지부터는 `${base}pageN/` 로 나간다 (Chirpy 와 같은 형식). */
   base?: string;
 }
 
 const { current, total, base = '/' } = Astro.props;
 
-const href = (page: number) => (page === 1 ? base : `${base}page/${page}/`);
+const href = (page: number) => (page === 1 ? base : `${base}page${page}/`);
 
 // 현재 페이지 주변 ±1 만 노출하고 나머지는 생략 부호로 접는다.
 const pages: (number | '…')[] = [];
