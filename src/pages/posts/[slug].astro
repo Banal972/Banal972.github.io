@@ -64,36 +64,71 @@ const hasToc = tocHeadings.length >= 2;
   updatedAt={post.data.updated}
 >
   <article class="post">
-    <header class="post-head">
-      <div class="container container--narrow">
-        <a class="post-category" href={`/categories/${slugify(category)}/`}>
-          {categoryLabel(category)}
-        </a>
-        <h1>{post.data.title}</h1>
+    {/* 제목·본문·꼬리말을 한 그리드에 넣어야 목차 컬럼이 있어도 세로 축이 안 어긋난다 */}
+    <div class:list={['container', 'post-shell', { 'has-toc': hasToc }]}>
+      <div class="post-main">
+        <header class="post-head">
+          <a class="post-category" href={`/categories/${slugify(category)}/`}>
+            {categoryLabel(category)}
+          </a>
+          <h1>{post.data.title}</h1>
 
-        <div class="post-meta">
-          <img class="avatar" src={SITE.author.avatar} alt="" width="28" height="28" />
-          <span class="author">{SITE.author.name}</span>
-          <span class="sep" aria-hidden="true">·</span>
-          <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
-          <span class="sep" aria-hidden="true">·</span>
-          <span>{readingTime(post)}분 읽기</span>
+          <div class="post-meta">
+            <img class="avatar" src={SITE.author.avatar} alt="" width="28" height="28" />
+            <span class="author">{SITE.author.name}</span>
+            <span class="sep" aria-hidden="true">·</span>
+            <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+            <span class="sep" aria-hidden="true">·</span>
+            <span>{readingTime(post)}분 읽기</span>
+          </div>
+        </header>
+
+        {
+          post.data.heroImage && (
+            <figure class="post-hero">
+              <img src={post.data.heroImage} alt={post.data.heroAlt ?? ''} />
+            </figure>
+          )
+        }
+
+        <div class="prose post-body">
+          <Content />
+        </div>
+
+        <div class="post-foot">
+          {
+            post.data.tags.length > 0 && (
+              <ul class="tags">
+                {post.data.tags.map((tag) => (
+                  <li>
+                    <a href={`/tags/${slugify(tag)}/`}>#{tag}</a>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+
+          <nav class="adjacent" aria-label="이전 다음 글">
+            {
+              older && (
+                <a class="adj" href={postUrl(older)}>
+                  <span class="adj-label">이전 글</span>
+                  <span class="adj-title">{older.data.title}</span>
+                </a>
+              )
+            }
+            {
+              newer && (
+                <a class="adj adj--next" href={postUrl(newer)}>
+                  <span class="adj-label">다음 글</span>
+                  <span class="adj-title">{newer.data.title}</span>
+                </a>
+              )
+            }
+          </nav>
         </div>
       </div>
-    </header>
 
-    {
-      post.data.heroImage && (
-        <figure class="post-hero container container--narrow">
-          <img src={post.data.heroImage} alt={post.data.heroAlt ?? ''} />
-        </figure>
-      )
-    }
-
-    <div class:list={['container', 'post-shell', { 'has-toc': hasToc }]}>
-      <div class="prose post-body">
-        <Content />
-      </div>
       {
         hasToc && (
           <aside class="post-aside">
@@ -101,39 +136,6 @@ const hasToc = tocHeadings.length >= 2;
           </aside>
         )
       }
-    </div>
-
-    <div class="container container--narrow post-foot">
-      {
-        post.data.tags.length > 0 && (
-          <ul class="tags">
-            {post.data.tags.map((tag) => (
-              <li>
-                <a href={`/tags/${slugify(tag)}/`}>#{tag}</a>
-              </li>
-            ))}
-          </ul>
-        )
-      }
-
-      <nav class="adjacent" aria-label="이전 다음 글">
-        {
-          older && (
-            <a class="adj" href={postUrl(older)}>
-              <span class="adj-label">이전 글</span>
-              <span class="adj-title">{older.data.title}</span>
-            </a>
-          )
-        }
-        {
-          newer && (
-            <a class="adj adj--next" href={postUrl(newer)}>
-              <span class="adj-label">다음 글</span>
-              <span class="adj-title">{newer.data.title}</span>
-            </a>
-          )
-        }
-      </nav>
     </div>
 
     {
@@ -156,7 +158,7 @@ const hasToc = tocHeadings.length >= 2;
 
 <style>
   .post-head {
-    padding-block: clamp(2.5rem, 6vw, 4.5rem) 2rem;
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) 2.25rem;
   }
 
   .post-category {
@@ -200,7 +202,7 @@ const hasToc = tocHeadings.length >= 2;
   }
 
   .post-hero {
-    margin-block: 0 2.5rem;
+    margin: 0 0 2.5rem;
   }
 
   .post-hero img {
@@ -215,11 +217,12 @@ const hasToc = tocHeadings.length >= 2;
     gap: 3rem;
   }
 
-  .post-body {
+  /* 제목·본문·꼬리말이 공유하는 읽기 컬럼. 축이 여기 하나로 모인다. */
+  .post-main {
     min-width: 0;
+    width: 100%;
     max-width: 760px;
     margin-inline: auto;
-    width: 100%;
   }
 
   .post-aside {
@@ -230,11 +233,12 @@ const hasToc = tocHeadings.length >= 2;
   @media (min-width: 1120px) {
     .post-shell.has-toc {
       grid-template-columns: minmax(0, 1fr) 220px;
-      align-items: start;
+      /* align-items 를 start 로 두면 aside 높이가 내용만큼이라 sticky 가 움직일 공간이 없다 */
     }
 
     .post-shell.has-toc .post-aside {
       display: block;
+      padding-top: clamp(2.5rem, 6vw, 4.5rem);
     }
   }
 
@@ -309,8 +313,11 @@ const hasToc = tocHeadings.length >= 2;
     }
   }
 
+  /* 읽기 컬럼보다 넓게 가는 구간이라, 어긋나 보이지 않게 선으로 구간을 끊는다 */
   .related {
     margin-top: 5rem;
+    padding-top: 3.5rem;
+    border-top: 1px solid var(--line);
   }
 
   .related-grid {
