@@ -79,12 +79,6 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     flex-shrink: 0;
   }
 
-  .logo-mark {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, #ff7a59));
-  }
 
   .nav {
     display: flex;
@@ -177,8 +171,8 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
       gap: 1rem;
     }
 
-    .logo-text {
-      display: none;
+    .logo {
+      font-size: 1.0625rem;
     }
   }
 </style>
