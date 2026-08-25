@@ -1,0 +1,324 @@
+---
+import { render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+import Base from '~/layouts/Base.astro';
+import Toc from '~/components/Toc.astro';
+import Giscus from '~/components/Giscus.astro';
+import PostCard from '~/components/PostCard.astro';
+import { SITE } from '~/consts';
+import {
+  categoryLabel,
+  excerpt,
+  formatDate,
+  getPosts,
+  isoDate,
+  postUrl,
+  primaryCategory,
+  readingTime,
+  slugify,
+  type Post,
+} from '~/lib/posts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPosts();
+
+  return posts.map((post, i) => ({
+    // 파일명이 곧 slug 다. Chirpy 시절 `/posts/<slug>/` 를 그대로 재현한다.
+    params: { slug: post.id },
+    props: {
+      post,
+      // 배열은 최신순이라 더 새로운 글이 앞에 온다.
+      newer: posts[i - 1] ?? null,
+      older: posts[i + 1] ?? null,
+      related: posts
+        .filter((p) => p.id !== post.id && primaryCategory(p) === primaryCategory(post))
+        .slice(0, 3),
+    },
+  }));
+};
+
+interface Props {
+  post: Post;
+  newer: Post | null;
+  older: Post | null;
+  related: Post[];
+}
+
+const { post, newer, older, related } = Astro.props;
+const { Content, headings } = await render(post);
+
+const category = primaryCategory(post);
+const description = excerpt(post, 150);
+
+// 목차가 없는 글에서 오른쪽 220px 를 비워두면 본문이 왼쪽으로 쏠려 보인다.
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const hasToc = tocHeadings.length >= 2;
+---
+
+<Base
+  title={post.data.title}
+  description={description}
+  image={post.data.heroImage}
+  type="article"
+  publishedAt={post.data.date}
+  updatedAt={post.data.updated}
+>
+  <article class="post">
+    <header class="post-head">
+      <div class="container container--narrow">
+        <a class="post-category" href={`/categories/${slugify(category)}/`}>
+          {categoryLabel(category)}
+        </a>
+        <h1>{post.data.title}</h1>
+
+        <div class="post-meta">
+          <img class="avatar" src={SITE.author.avatar} alt="" width="28" height="28" />
+          <span class="author">{SITE.author.name}</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>{readingTime(post)}분 읽기</span>
+        </div>
+      </div>
+    </header>
+
+    {
+      post.data.heroImage && (
+        <figure class="post-hero container container--narrow">
+          <img src={post.data.heroImage} alt={post.data.heroAlt ?? ''} />
+        </figure>
+      )
+    }
+
+    <div class:list={['container', 'post-shell', { 'has-toc': hasToc }]}>
+      <div class="prose post-body">
+        <Content />
+      </div>
+      {
+        hasToc && (
+          <aside class="post-aside">
+            <Toc headings={headings} />
+          </aside>
+        )
+      }
+    </div>
+
+    <div class="container container--narrow post-foot">
+      {
+        post.data.tags.length > 0 && (
+          <ul class="tags">
+            {post.data.tags.map((tag) => (
+              <li>
+                <a href={`/tags/${slugify(tag)}/`}>#{tag}</a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <nav class="adjacent" aria-label="이전 다음 글">
+        {
+          older && (
+            <a class="adj" href={postUrl(older)}>
+              <span class="adj-label">이전 글</span>
+              <span class="adj-title">{older.data.title}</span>
+            </a>
+          )
+        }
+        {
+          newer && (
+            <a class="adj adj--next" href={postUrl(newer)}>
+              <span class="adj-label">다음 글</span>
+              <span class="adj-title">{newer.data.title}</span>
+            </a>
+          )
+        }
+      </nav>
+
+      <Giscus />
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="container related">
+          <div class="section-head">
+            <h2>비슷한 글</h2>
+            <a href={`/categories/${slugify(category)}/`}>{categoryLabel(category)} 더 보기 →</a>
+          </div>
+          <div class="related-grid">
+            {related.map((p) => (
+              <PostCard post={p} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .post-head {
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) 2rem;
+  }
+
+  .post-category {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--accent-text);
+    margin-bottom: 0.85rem;
+  }
+
+  .post-head h1 {
+    font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+    line-height: 1.28;
+    letter-spacing: -0.035em;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 0.15rem;
+  }
+
+  .author {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .sep {
+    opacity: 0.5;
+  }
+
+  .post-hero {
+    margin-block: 0 2.5rem;
+  }
+
+  .post-hero img {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+  }
+
+  .post-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+
+  .post-body {
+    min-width: 0;
+    max-width: 760px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .post-aside {
+    display: none;
+  }
+
+  /* 넓은 화면에서만 오른쪽 여백에 목차를 띄운다 */
+  @media (min-width: 1120px) {
+    .post-shell.has-toc {
+      grid-template-columns: minmax(0, 1fr) 220px;
+      align-items: start;
+    }
+
+    .post-shell.has-toc .post-aside {
+      display: block;
+    }
+  }
+
+  .post-foot {
+    margin-top: 3.5rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0 0 2.5rem;
+    padding: 0;
+  }
+
+  .tags a {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--line);
+    font-size: 0.8125rem;
+    color: var(--text-soft);
+    transition: all 0.15s ease;
+  }
+
+  .tags a:hover {
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+
+  .adjacent {
+    display: grid;
+    gap: 0.75rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .adj {
+    display: grid;
+    gap: 0.3rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .adj:hover {
+    border-color: var(--line-strong);
+    background: var(--surface-hover);
+  }
+
+  .adj-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .adj-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .adj--next {
+    text-align: right;
+  }
+
+  @media (min-width: 720px) {
+    .adjacent {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .related {
+    margin-top: 5rem;
+  }
+
+  .related-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+</style>

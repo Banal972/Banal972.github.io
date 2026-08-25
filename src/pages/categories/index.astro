@@ -1,0 +1,41 @@
+---
+import Base from '~/layouts/Base.astro';
+import TaxonomyList from '~/components/TaxonomyList.astro';
+import { categoryLabel, countBy, getPosts, postCategories, slugify } from '~/lib/posts';
+
+const posts = await getPosts();
+const items = countBy(posts, postCategories).map((c) => ({
+  ...c,
+  label: categoryLabel(c.name),
+  href: `/categories/${slugify(c.name)}/`,
+}));
+---
+
+<Base title="카테고리" description="Banal.log 의 글을 카테고리별로 모아봤습니다.">
+  <section class="container page-head">
+    <p class="eyebrow">Categories</p>
+    <h1>카테고리</h1>
+    <p class="sub">{items.length}개 카테고리 · {posts.length}편</p>
+  </section>
+
+  <section class="container">
+    <TaxonomyList items={items} />
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: clamp(2.5rem, 6vw, 4rem) 2rem;
+  }
+
+  .page-head h1 {
+    margin-top: 0.5rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .sub {
+    margin-top: 0.65rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+</style>

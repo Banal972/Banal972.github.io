@@ -1,0 +1,59 @@
+---
+import type { GetStaticPaths } from 'astro';
+
+import Base from '~/layouts/Base.astro';
+import PostGrid from '~/components/PostGrid.astro';
+import { countBy, getPosts, slugify, type Post } from '~/lib/posts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPosts();
+
+  return countBy(posts, (p) => p.data.tags).map((t) => ({
+    params: { tag: slugify(t.name) },
+    props: {
+      name: t.name,
+      posts: posts.filter((p) => p.data.tags.includes(t.name)),
+    },
+  }));
+};
+
+interface Props {
+  name: string;
+  posts: Post[];
+}
+
+const { name, posts } = Astro.props;
+---
+
+<Base title={`#${name}`} description={`'${name}' 태그가 붙은 글 ${posts.length}편.`}>
+  <section class="container page-head">
+    <p class="eyebrow">Tag</p>
+    <h1>#{name}</h1>
+    <p class="sub">{posts.length}편 · <a href="/tags/">전체 태그 보기</a></p>
+  </section>
+
+  <section class="container">
+    <PostGrid posts={posts} />
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: clamp(2.5rem, 6vw, 4rem) 2rem;
+  }
+
+  .page-head h1 {
+    margin-top: 0.5rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .sub {
+    margin-top: 0.65rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .sub a:hover {
+    color: var(--accent-text);
+  }
+</style>

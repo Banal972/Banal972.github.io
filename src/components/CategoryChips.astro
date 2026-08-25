@@ -1,0 +1,82 @@
+---
+import { categoryLabel, slugify } from '~/lib/posts';
+
+interface Props {
+  categories: { name: string; count: number }[];
+  active?: string;
+  total: number;
+}
+
+const { categories, active, total } = Astro.props;
+---
+
+<nav class="chips" aria-label="카테고리 필터">
+  <a href="/" class:list={['chip', { active: !active }]}>
+    전체 <span class="count">{total}</span>
+  </a>
+  {
+    categories.map((c) => (
+      <a
+        href={`/categories/${slugify(c.name)}/`}
+        class:list={['chip', { active: active === c.name }]}
+      >
+        {categoryLabel(c.name)} <span class="count">{c.count}</span>
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .chips {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-block: 0.25rem;
+    /* 가로 스크롤 시 컨테이너 여백 밖으로 흘려보낸다 */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-soft);
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+
+  .chip:hover {
+    border-color: var(--line-strong);
+    color: var(--text);
+  }
+
+  .chip.active {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  .count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chip.active .count {
+    color: color-mix(in srgb, var(--bg) 70%, transparent);
+  }
+</style>

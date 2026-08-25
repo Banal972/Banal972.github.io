@@ -1,0 +1,249 @@
+---
+/**
+ * Chirpy 의 simple-jekyll-search 대체.
+ * 빌드 때 만들어지는 /search.json 을 처음 열 때 한 번만 받아와 클라이언트에서 필터링한다.
+ * (dev 서버에서도 그대로 동작한다.)
+ */
+---
+
+<dialog class="search" data-search-dialog aria-label="글 검색">
+  <form method="dialog" class="search-inner">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+      </svg>
+      <input
+        type="search"
+        data-search-input
+        placeholder="제목, 태그, 본문으로 검색"
+        autocomplete="off"
+        enterkeyhint="search"
+        aria-label="검색어"
+      />
+      <button type="submit" class="esc" aria-label="닫기">ESC</button>
+    </div>
+
+    <div class="search-results" data-search-results>
+      <p class="hint">검색어를 입력해 보세요.</p>
+    </div>
+  </form>
+</dialog>
+
+<style>
+  .search {
+    width: min(640px, calc(100vw - 2rem));
+    margin-top: 12vh;
+    margin-inline: auto;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .search::backdrop {
+    background: rgb(10 11 15 / 45%);
+    backdrop-filter: blur(2px);
+  }
+
+  .search-inner {
+    display: flex;
+    flex-direction: column;
+    max-height: min(70vh, 560px);
+  }
+
+  .search-field {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .search-field svg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1rem;
+  }
+
+  input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .esc {
+    flex-shrink: 0;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .search-results {
+    overflow-y: auto;
+    padding: 0.5rem;
+  }
+
+  .hint,
+  .empty {
+    padding: 1.75rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .search-results :global(a) {
+    display: block;
+    padding: 0.7rem 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .search-results :global(a:hover),
+  .search-results :global(a:focus-visible) {
+    background: var(--surface-hover);
+  }
+
+  .search-results :global(.r-cat) {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--accent-text);
+  }
+
+  .search-results :global(.r-title) {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    margin-top: 0.1rem;
+  }
+
+  .search-results :global(.r-desc) {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .search-results :global(mark) {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    border-radius: 3px;
+    padding-inline: 1px;
+  }
+</style>
+
+<script>
+  type Entry = {
+    url: string;
+    title: string;
+    category: string;
+    date: string;
+    keywords: string;
+    body: string;
+  };
+
+  const dialog = document.querySelector<HTMLDialogElement>('[data-search-dialog]');
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  if (!dialog || !input || !results) throw new Error('search markup missing');
+
+  let index: Entry[] | null = null;
+  let loading: Promise<Entry[]> | null = null;
+
+  const loadIndex = () => {
+    loading ??= fetch('/search.json')
+      .then((r) => r.json())
+      .then((data: Entry[]) => (index = data));
+    return loading;
+  };
+
+  const escapeHtml = (s: string) =>
+    s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+  const highlight = (text: string, query: string) => {
+    const at = text.toLowerCase().indexOf(query);
+    if (at === -1) return escapeHtml(text);
+    return `${escapeHtml(text.slice(0, at))}<mark>${escapeHtml(
+      text.slice(at, at + query.length),
+    )}</mark>${escapeHtml(text.slice(at + query.length))}`;
+  };
+
+  const render = (query: string) => {
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      results.innerHTML = '<p class="hint">검색어를 입력해 보세요.</p>';
+      return;
+    }
+    if (!index) {
+      results.innerHTML = '<p class="hint">검색 준비 중…</p>';
+      return;
+    }
+
+    // 제목 > 태그·카테고리 > 본문 순으로 가중치를 준다.
+    const scored = index
+      .map((e) => {
+        const title = e.title.toLowerCase().includes(q) ? 3 : 0;
+        const keywords = e.keywords.toLowerCase().includes(q) ? 2 : 0;
+        const body = e.body.toLowerCase().includes(q) ? 1 : 0;
+        return { e, score: title + keywords + body };
+      })
+      .filter((r) => r.score > 0)
+      .sort((a, b) => b.score - a.score || b.e.date.localeCompare(a.e.date))
+      .slice(0, 8);
+
+    if (scored.length === 0) {
+      results.innerHTML = `<p class="empty">'${escapeHtml(query)}' 검색 결과가 없습니다.</p>`;
+      return;
+    }
+
+    results.innerHTML = scored
+      .map(
+        ({ e }) => `<a href="${e.url}">
+          <span class="r-cat">${escapeHtml(e.category)}</span>
+          <span class="r-title">${highlight(e.title, q)}</span>
+          <span class="r-desc">${escapeHtml(e.body.slice(0, 90))}…</span>
+        </a>`,
+      )
+      .join('');
+  };
+
+  const open = () => {
+    if (dialog.open) return;
+    dialog.showModal();
+    loadIndex().then(() => render(input.value));
+    input.focus();
+  };
+
+  document.querySelectorAll('[data-search-open]').forEach((el) => el.addEventListener('click', open));
+
+  input.addEventListener('input', () => render(input.value));
+
+  // Enter 로 폼이 닫히지 않게 하고, 첫 결과로 이동시킨다.
+  input.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    results.querySelector('a')?.click();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((event.target as HTMLElement)?.tagName ?? '');
+    if (typing || event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.key === '/') {
+      event.preventDefault();
+      open();
+    }
+  });
+</script>

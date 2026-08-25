@@ -1,0 +1,30 @@
+---
+import PostCard from '~/components/PostCard.astro';
+import type { Post } from '~/lib/posts';
+
+interface Props {
+  posts: Post[];
+  eagerCount?: number;
+}
+
+const { posts, eagerCount = 3 } = Astro.props;
+---
+
+<div class="grid">
+  {posts.map((post, i) => <PostCard post={post} eager={i < eagerCount} />)}
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 2.75rem 1.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 2.25rem;
+    }
+  }
+</style>

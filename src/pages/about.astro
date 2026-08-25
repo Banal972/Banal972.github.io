@@ -1,0 +1,118 @@
+---
+import Base from '~/layouts/Base.astro';
+import { SITE } from '~/consts';
+import { countBy, getPosts, postCategories } from '~/lib/posts';
+
+const posts = await getPosts();
+const categories = countBy(posts, postCategories);
+const since = posts.at(-1)?.data.date.getFullYear();
+---
+
+<Base title="소개" description={`${SITE.author.name} 소개 페이지.`}>
+  <section class="container container--narrow about">
+    <img class="avatar" src={SITE.author.avatar} alt="" width="88" height="88" />
+    <h1>{SITE.author.name}</h1>
+    <p class="lead">{SITE.description}</p>
+
+    <dl class="stats">
+      <div>
+        <dt>글</dt>
+        <dd>{posts.length}편</dd>
+      </div>
+      <div>
+        <dt>카테고리</dt>
+        <dd>{categories.length}개</dd>
+      </div>
+      <div>
+        <dt>시작</dt>
+        <dd>{since}년</dd>
+      </div>
+    </dl>
+
+    <div class="prose body">
+      <p>
+        개발하면서 막혔던 지점과 그걸 어떻게 풀었는지를 남깁니다. 주로 React, Next.js, React
+        Native, Flutter 이야기가 많습니다.
+      </p>
+      <p>
+        피드백이나 잘못된 내용 제보는 언제든 환영합니다.
+        <a href={`mailto:${SITE.author.email}`}>{SITE.author.email}</a> 로 보내주시거나
+        각 글 하단의 댓글을 이용해 주세요.
+      </p>
+    </div>
+
+    <div class="links">
+      <a href={SITE.author.github} target="_blank" rel="noopener">GitHub</a>
+      <a href={`mailto:${SITE.author.email}`}>Email</a>
+      <a href="/feed.xml">RSS</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about {
+    padding-block: clamp(3rem, 8vw, 5rem);
+  }
+
+  .avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+  }
+
+  h1 {
+    margin-top: 1.25rem;
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+  }
+
+  .lead {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin: 2.5rem 0;
+    padding-block: 1.5rem;
+    border-block: 1px solid var(--line);
+  }
+
+  .stats div {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  dt {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  dd {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .links {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+  }
+
+  .links a {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    transition: all 0.15s ease;
+  }
+
+  .links a:hover {
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+</style>
