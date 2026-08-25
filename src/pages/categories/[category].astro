@@ -1,0 +1,76 @@
+---
+import type { GetStaticPaths } from 'astro';
+
+import Base from '~/layouts/Base.astro';
+import PostGrid from '~/components/PostGrid.astro';
+import CategoryChips from '~/components/CategoryChips.astro';
+import {
+  categoryLabel,
+  countBy,
+  getPosts,
+  postCategories,
+  slugify,
+  type Post,
+} from '~/lib/posts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPosts();
+  const categories = countBy(posts, postCategories);
+
+  return categories.map((c) => ({
+    params: { category: slugify(c.name) },
+    props: {
+      name: c.name,
+      posts: posts.filter((p) => postCategories(p).includes(c.name)),
+      categories,
+      total: posts.length,
+    },
+  }));
+};
+
+interface Props {
+  name: string;
+  posts: Post[];
+  categories: { name: string; count: number }[];
+  total: number;
+}
+
+const { name, posts, categories, total } = Astro.props;
+const label = categoryLabel(name);
+---
+
+<Base title={label} description={`${label} 카테고리의 글 ${posts.length}편.`}>
+  <section class="container page-head">
+    <p class="eyebrow">Category</p>
+    <h1>{label}</h1>
+    <p class="sub">{posts.length}편</p>
+  </section>
+
+  <section class="container">
+    <CategoryChips categories={categories} active={name} total={total} />
+    <div class="grid-wrap">
+      <PostGrid posts={posts} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: clamp(2.5rem, 6vw, 4rem) 2rem;
+  }
+
+  .page-head h1 {
+    margin-top: 0.5rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .sub {
+    margin-top: 0.65rem;
+    color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .grid-wrap {
+    margin-top: 2.25rem;
+  }
+</style>

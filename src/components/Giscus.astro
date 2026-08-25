@@ -1,0 +1,72 @@
+---
+import { GISCUS, SITE } from '~/consts';
+
+// repoId / categoryId 가 채워지기 전에는 안내만 띄운다. (giscus.app 에서 발급)
+const configured = Boolean(GISCUS.repoId && GISCUS.categoryId);
+---
+
+<section class="comments" aria-label="댓글">
+  {
+    configured ? (
+      <script
+        src="https://giscus.app/client.js"
+        data-repo={GISCUS.repo}
+        data-repo-id={GISCUS.repoId}
+        data-category={GISCUS.category}
+        data-category-id={GISCUS.categoryId}
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang={SITE.lang}
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+      />
+    ) : (
+      <p class="setup">
+        댓글(giscus)이 아직 연결되지 않았습니다. <code>src/consts.ts</code> 의 <code>GISCUS</code> 에
+        repoId / categoryId 를 채워주세요.
+      </p>
+    )
+  }
+</section>
+
+<style>
+  .comments {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .setup {
+    padding: 1.25rem;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .setup code {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text);
+  }
+</style>
+
+<script>
+  // 테마 토글에 맞춰 giscus iframe 테마도 바꿔준다.
+  const sync = () => {
+    const frame = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'dark_dimmed' : 'light';
+    frame?.contentWindow?.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app');
+  };
+
+  new MutationObserver(sync).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
+</script>

@@ -1,0 +1,83 @@
+---
+import Base from '~/layouts/Base.astro';
+import PostCard from '~/components/PostCard.astro';
+import PostGrid from '~/components/PostGrid.astro';
+import CategoryChips from '~/components/CategoryChips.astro';
+import Pagination from '~/components/Pagination.astro';
+import { SITE } from '~/consts';
+import { countBy, getPosts, postCategories, withPinned } from '~/lib/posts';
+
+const all = withPinned(await getPosts());
+const categories = countBy(all, postCategories);
+
+const totalPages = Math.max(1, Math.ceil(all.length / SITE.postsPerPage));
+const [featured, ...rest] = all.slice(0, SITE.postsPerPage);
+---
+
+<Base title={SITE.title}>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Banal.log</p>
+      <h1>{SITE.tagline}</h1>
+      <p class="hero-desc">{SITE.description}</p>
+    </div>
+  </section>
+
+  {
+    featured && (
+      <section class="container featured">
+        <PostCard post={featured} variant="featured" eager />
+      </section>
+    )
+  }
+
+  <section class="container feed">
+    <div class="section-head">
+      <h2>전체 글</h2>
+      <span class="total">{all.length}편</span>
+    </div>
+
+    <CategoryChips categories={categories} total={all.length} />
+
+    <div class="feed-grid">
+      <PostGrid posts={rest} />
+    </div>
+
+    <Pagination current={1} total={totalPages} />
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 8vw, 5.5rem) clamp(2rem, 4vw, 3rem);
+  }
+
+  .hero h1 {
+    margin-top: 0.6rem;
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    letter-spacing: -0.04em;
+  }
+
+  .hero-desc {
+    margin-top: 1rem;
+    max-width: 46ch;
+    color: var(--text-muted);
+    font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+  }
+
+  .featured {
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+    margin-bottom: clamp(3rem, 6vw, 4.5rem);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .total {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .feed-grid {
+    margin-top: 2.25rem;
+  }
+</style>

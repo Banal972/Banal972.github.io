@@ -1,0 +1,73 @@
+---
+import type { GetStaticPaths } from 'astro';
+
+import Base from '~/layouts/Base.astro';
+import PostGrid from '~/components/PostGrid.astro';
+import CategoryChips from '~/components/CategoryChips.astro';
+import Pagination from '~/components/Pagination.astro';
+import { SITE } from '~/consts';
+import { countBy, getPosts, postCategories, withPinned, type Post } from '~/lib/posts';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const all = withPinned(await getPosts());
+  const totalPages = Math.max(1, Math.ceil(all.length / SITE.postsPerPage));
+
+  // 1페이지는 홈(`/`)이 담당한다. Chirpy 의 `/page/2/` 규칙을 그대로 이어받는다.
+  return Array.from({ length: totalPages - 1 }, (_, i) => {
+    const page = i + 2;
+    return {
+      params: { page: String(page) },
+      props: {
+        page,
+        totalPages,
+        posts: all.slice((page - 1) * SITE.postsPerPage, page * SITE.postsPerPage),
+        categories: countBy(all, postCategories),
+        total: all.length,
+      },
+    };
+  });
+};
+
+interface Props {
+  page: number;
+  totalPages: number;
+  posts: Post[];
+  categories: { name: string; count: number }[];
+  total: number;
+}
+
+const { page, totalPages, posts, categories, total } = Astro.props;
+---
+
+<Base title={`전체 글 ${page}페이지`} noindex>
+  <section class="container feed">
+    <div class="section-head">
+      <h2>전체 글</h2>
+      <span class="total">{page} / {totalPages} 페이지</span>
+    </div>
+
+    <CategoryChips categories={categories} total={total} />
+
+    <div class="feed-grid">
+      <PostGrid posts={posts} />
+    </div>
+
+    <Pagination current={page} total={totalPages} />
+  </section>
+</Base>
+
+<style>
+  .feed {
+    padding-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .total {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .feed-grid {
+    margin-top: 2.25rem;
+  }
+</style>

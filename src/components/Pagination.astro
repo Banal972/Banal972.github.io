@@ -1,0 +1,119 @@
+---
+interface Props {
+  current: number;
+  total: number;
+  /** 1페이지 경로. 2페이지부터는 `${base}page/N/` 로 나간다. */
+  base?: string;
+}
+
+const { current, total, base = '/' } = Astro.props;
+
+const href = (page: number) => (page === 1 ? base : `${base}page/${page}/`);
+
+// 현재 페이지 주변 ±1 만 노출하고 나머지는 생략 부호로 접는다.
+const pages: (number | '…')[] = [];
+for (let p = 1; p <= total; p++) {
+  if (p === 1 || p === total || Math.abs(p - current) <= 1) pages.push(p);
+  else if (pages.at(-1) !== '…') pages.push('…');
+}
+---
+
+{
+  total > 1 && (
+    <nav class="pagination" aria-label="페이지 이동">
+      <a
+        class:list={['step', { disabled: current === 1 }]}
+        href={current === 1 ? undefined : href(current - 1)}
+        aria-disabled={current === 1}
+        rel="prev"
+      >
+        이전
+      </a>
+
+      <ul>
+        {pages.map((p) =>
+          p === '…' ? (
+            <li class="gap" aria-hidden="true">
+              …
+            </li>
+          ) : (
+            <li>
+              <a
+                class:list={['page', { active: p === current }]}
+                href={href(p)}
+                aria-current={p === current ? 'page' : undefined}
+              >
+                {p}
+              </a>
+            </li>
+          ),
+        )}
+      </ul>
+
+      <a
+        class:list={['step', { disabled: current === total }]}
+        href={current === total ? undefined : href(current + 1)}
+        aria-disabled={current === total}
+        rel="next"
+      >
+        다음
+      </a>
+    </nav>
+  )
+}
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 4rem;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page,
+  .step {
+    display: grid;
+    place-items: center;
+    min-width: 36px;
+    height: 36px;
+    padding-inline: 0.7rem;
+    border-radius: 9px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-soft);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .page:hover,
+  .step:not(.disabled):hover {
+    background: var(--surface-hover);
+    color: var(--text);
+  }
+
+  .page.active {
+    background: var(--text);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  .step.disabled {
+    color: var(--text-muted);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .gap {
+    color: var(--text-muted);
+    padding-inline: 0.25rem;
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+import { categoryHue, categoryLabel, hash } from '~/lib/posts';
+
+interface Props {
+  slug: string;
+  title: string;
+  category: string;
+  heroImage?: string;
+  heroAlt?: string;
+  eager?: boolean;
+}
+
+const { slug, title, category, heroImage, heroAlt, eager = false } = Astro.props;
+
+// 기존 35편에는 대표 이미지가 없다. 그래서 없을 때는 "빈 자리"가 아니라
+// 카테고리 색을 쓴 타이포 카드로 채운다. 글마다 색/각도가 고정되도록 슬러그를 해시한다.
+const hue = categoryHue(category);
+const seed = hash(slug);
+const angle = 120 + (seed % 60);
+const shift = 18 + (seed % 34);
+const style = `--h:${hue}; --h2:${(hue + shift) % 360}; --angle:${angle}deg;`;
+---
+
+{
+  heroImage ? (
+    <img
+      class="thumb thumb--photo"
+      src={heroImage}
+      alt={heroAlt ?? title}
+      loading={eager ? 'eager' : 'lazy'}
+      decoding="async"
+    />
+  ) : (
+    <div class="thumb thumb--generated" style={style} aria-hidden="true">
+      <span class="wordmark">{categoryLabel(category)}</span>
+      <span class="dot" />
+    </div>
+  )
+}
+
+<style>
+  .thumb {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius);
+    background: var(--bg-subtle);
+    overflow: hidden;
+  }
+
+  .thumb--photo {
+    object-fit: cover;
+    height: 100%;
+  }
+
+  .thumb--generated {
+    position: relative;
+    display: grid;
+    place-items: center;
+    background-image:
+      radial-gradient(120% 120% at 12% 8%, hsl(var(--h) 82% 62% / 55%) 0%, transparent 55%),
+      linear-gradient(var(--angle), hsl(var(--h) 62% 46%), hsl(var(--h2) 58% 30%));
+  }
+
+  .thumb--generated::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 14px 14px;
+    color: #fff;
+    opacity: 0.09;
+  }
+
+  .wordmark {
+    position: relative;
+    z-index: 1;
+    padding-inline: 1rem;
+    font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 14px rgb(0 0 0 / 22%);
+    opacity: 0.92;
+  }
+
+  .dot {
+    position: absolute;
+    right: 0.85rem;
+    bottom: 0.85rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.5;
+  }
+</style>

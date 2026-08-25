@@ -1,0 +1,86 @@
+---
+interface Props {
+  items: { name: string; count: number; href: string; label?: string }[];
+  variant?: 'card' | 'pill';
+}
+
+const { items, variant = 'card' } = Astro.props;
+---
+
+<ul class:list={['list', `list--${variant}`]}>
+  {
+    items.map((item) => (
+      <li>
+        <a href={item.href}>
+          <span class="name">{item.label ?? item.name}</span>
+          <span class="count">{item.count}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .list--card {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  .list--card a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .list--card a:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .list--card .name {
+    font-weight: 600;
+  }
+
+  .list--pill {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .list--pill a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 0.9375rem;
+    transition: all 0.15s ease;
+  }
+
+  .list--pill a:hover {
+    border-color: var(--accent);
+    color: var(--accent-text);
+  }
+
+  .count {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

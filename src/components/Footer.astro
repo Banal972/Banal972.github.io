@@ -1,0 +1,70 @@
+---
+import { SITE, NAV } from '~/consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div class="brand">
+      <p class="name">{SITE.title}</p>
+      <p class="tagline">{SITE.tagline}</p>
+    </div>
+
+    <nav class="links" aria-label="푸터 메뉴">
+      {NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a href="/rss.xml">RSS</a>
+    </nav>
+
+    <p class="copy">© {year} {SITE.author.name}. Built with Astro.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 6rem;
+    border-top: 1px solid var(--line);
+    background: var(--bg-subtle);
+  }
+
+  .inner {
+    padding-block: 2.75rem;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .name {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .tagline,
+  .copy {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text-soft);
+  }
+
+  .links a:hover {
+    color: var(--accent-text);
+  }
+
+  @media (min-width: 720px) {
+    .inner {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+
+    .copy {
+      grid-column: 1 / -1;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>
