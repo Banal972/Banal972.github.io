@@ -127,8 +127,8 @@ export const metadata: Metadata = {
 <table>
 <tbody>
 <tr>
-<td><img src="/posts/next-pwa/241109-035909.png"/></td>
-<td><img src="/posts/next-pwa/241109-034847.png"/></td>
+<td><img src="/posts/next-pwa/241109-035909.png" alt="PWA 설치 배너가 뜬 모바일 화면"/></td>
+<td><img src="/posts/next-pwa/241109-034847.png" alt="PWA 로 설치된 앱 실행 화면"/></td>
 </tr>
 </tbody>
 </table> -->

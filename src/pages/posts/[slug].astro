@@ -6,6 +6,7 @@ import Base from '~/layouts/Base.astro';
 import Toc from '~/components/Toc.astro';
 import PostCard from '~/components/PostCard.astro';
 import { SITE } from '~/consts';
+import { postSchema } from '~/lib/schema';
 import {
   categoryLabel,
   excerpt,
@@ -49,6 +50,8 @@ const { Content, headings } = await render(post);
 
 const category = primaryCategory(post);
 const description = excerpt(post, 150);
+// 대표 이미지가 없으면 빌드 때 그려둔 글 전용 소셜 카드를 쓴다.
+const socialImage = post.data.heroImage ?? `/og/${post.id}.png`;
 
 // 목차가 없는 글에서 오른쪽 220px 를 비워두면 본문이 왼쪽으로 쏠려 보인다.
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
@@ -58,8 +61,9 @@ const hasToc = tocHeadings.length >= 2;
 <Base
   title={post.data.title}
   description={description}
-  image={post.data.heroImage}
+  image={socialImage}
   type="article"
+  schema={postSchema(post)}
   publishedAt={post.data.date}
   updatedAt={post.data.updated}
 >

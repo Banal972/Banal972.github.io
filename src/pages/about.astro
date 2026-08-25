@@ -1,6 +1,7 @@
 ---
 import Base from '~/layouts/Base.astro';
 import { SITE } from '~/consts';
+import { profileSchema } from '~/lib/schema';
 import { countBy, getPosts, postCategories } from '~/lib/posts';
 
 const posts = await getPosts();
@@ -8,7 +9,7 @@ const categories = countBy(posts, postCategories);
 const since = posts.at(-1)?.data.date.getFullYear();
 ---
 
-<Base title="소개" description={`${SITE.author.name} 소개 페이지.`}>
+<Base title="소개" description={`${SITE.author.name} 소개 페이지.`} schema={profileSchema()}>
   <section class="container container--narrow about">
     <img class="avatar" src={SITE.author.avatar} alt="" width="88" height="88" />
     <h1>{SITE.author.name}</h1>

@@ -9,6 +9,12 @@ export const GET: APIRoute = async ({ site }) => {
   const base = (site ?? new URL('https://banal972.github.io')).origin;
   const posts = await getPosts();
 
+  const newestIn = (list: typeof posts) =>
+    list.reduce<Date | undefined>((newest, p) => {
+      const d = p.data.updated ?? p.data.date;
+      return !newest || d > newest ? d : newest;
+    }, undefined);
+
   const latest = posts[0]?.data.date;
   const entries: { path: string; lastmod?: Date }[] = [
     { path: '/', lastmod: latest },
@@ -20,8 +26,16 @@ export const GET: APIRoute = async ({ site }) => {
       path: postUrl(post),
       lastmod: post.data.updated ?? post.data.date,
     })),
-    ...countBy(posts, postCategories).map((c) => ({ path: `/categories/${slugify(c.name)}/` })),
-    ...countBy(posts, (p) => p.data.tags).map((t) => ({ path: `/tags/${slugify(t.name)}/` })),
+    // 목록 페이지의 lastmod 는 "그 목록에 속한 가장 최근 글" 이어야 정확하다.
+    // 전부 같은 날짜로 채우면 구글이 lastmod 자체를 신뢰하지 않는다.
+    ...countBy(posts, postCategories).map((c) => ({
+      path: `/categories/${slugify(c.name)}/`,
+      lastmod: newestIn(posts.filter((p) => postCategories(p).includes(c.name))),
+    })),
+    ...countBy(posts, (p) => p.data.tags).map((t) => ({
+      path: `/tags/${slugify(t.name)}/`,
+      lastmod: newestIn(posts.filter((p) => p.data.tags.includes(t.name))),
+    })),
   ];
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

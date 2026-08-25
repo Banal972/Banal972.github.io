@@ -1,4 +1,23 @@
 User-agent: *
 Allow: /
 
+# 검색 결과 자체를 색인할 이유가 없는 경로
+Disallow: /search.json
+
+# AI 검색 인용을 허용한다. 기술 블로그라 인용 노출이 유입으로 이어진다.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://banal972.github.io/sitemap.xml

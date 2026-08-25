@@ -1,6 +1,7 @@
 ---
 import Base from '~/layouts/Base.astro';
 import { categoryLabel, getPosts, postUrl, primaryCategory } from '~/lib/posts';
+import { collectionSchema } from '~/lib/schema';
 
 const posts = await getPosts();
 
@@ -12,6 +13,17 @@ for (const post of posts) {
 }
 const years = [...byYear.entries()].sort((a, b) => b[0] - a[0]);
 
+const schema = collectionSchema({
+  name: '아카이브',
+  description: `Banal.log 의 글 ${posts.length}편을 연도별로 정리했습니다.`,
+  path: '/archives/',
+  crumbs: [
+    { name: '홈', path: '/' },
+    { name: '아카이브', path: '/archives/' },
+  ],
+  posts,
+});
+
 const monthDay = new Intl.DateTimeFormat('ko-KR', {
   month: '2-digit',
   day: '2-digit',
@@ -19,7 +31,7 @@ const monthDay = new Intl.DateTimeFormat('ko-KR', {
 });
 ---
 
-<Base title="아카이브" description={`Banal.log 의 글 ${posts.length}편을 연도별로 정리했습니다.`}>
+<Base title="아카이브" description={`Banal.log 의 글 ${posts.length}편을 연도별로 정리했습니다.`} schema={schema}>
   <section class="container container--narrow page-head">
     <p class="eyebrow">Archives</p>
     <h1>아카이브</h1>

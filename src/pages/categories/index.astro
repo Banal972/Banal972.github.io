@@ -1,6 +1,7 @@
 ---
 import Base from '~/layouts/Base.astro';
 import TaxonomyList from '~/components/TaxonomyList.astro';
+import { collectionSchema } from '~/lib/schema';
 import { categoryLabel, countBy, getPosts, postCategories, slugify } from '~/lib/posts';
 
 const posts = await getPosts();
@@ -9,9 +10,20 @@ const items = countBy(posts, postCategories).map((c) => ({
   label: categoryLabel(c.name),
   href: `/categories/${slugify(c.name)}/`,
 }));
+
+const schema = collectionSchema({
+  name: '카테고리',
+  description: 'Banal.log 의 글을 카테고리별로 모아봤습니다.',
+  path: '/categories/',
+  crumbs: [
+    { name: '홈', path: '/' },
+    { name: '카테고리', path: '/categories/' },
+  ],
+  posts,
+});
 ---
 
-<Base title="카테고리" description="Banal.log 의 글을 카테고리별로 모아봤습니다.">
+<Base title="카테고리" description="Banal.log 의 글을 카테고리별로 모아봤습니다." schema={schema}>
   <section class="container page-head">
     <p class="eyebrow">Categories</p>
     <h1>카테고리</h1>

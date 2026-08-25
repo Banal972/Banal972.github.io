@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 
 import Base from '~/layouts/Base.astro';
+import { collectionSchema } from '~/lib/schema';
 import PostGrid from '~/components/PostGrid.astro';
 import { countBy, getPosts, slugify, type Post } from '~/lib/posts';
 
@@ -23,9 +24,21 @@ interface Props {
 }
 
 const { name, posts } = Astro.props;
+const description = `'${name}' 태그가 붙은 글 ${posts.length}편.`;
+const schema = collectionSchema({
+  name: `#${name}`,
+  description,
+  path: `/tags/${slugify(name)}/`,
+  crumbs: [
+    { name: '홈', path: '/' },
+    { name: '태그', path: '/tags/' },
+    { name: `#${name}`, path: `/tags/${slugify(name)}/` },
+  ],
+  posts,
+});
 ---
 
-<Base title={`#${name}`} description={`'${name}' 태그가 붙은 글 ${posts.length}편.`}>
+<Base title={`#${name}`} description={description} schema={schema}>
   <section class="container page-head">
     <p class="eyebrow">Tag</p>
     <h1>#{name}</h1>

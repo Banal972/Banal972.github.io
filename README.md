@@ -53,6 +53,23 @@ pin: false # true 면 홈 상단 고정
 `scripts/migrate-jekyll-posts.mjs` 는 Chirpy `_posts/` → `src/content/blog/` 일회성 변환
 스크립트입니다. 원본은 `master` 브랜치 히스토리에 남아 있습니다.
 
+## SEO
+
+- **구조화 데이터** — `src/lib/schema.ts`. 글은 BlogPosting + BreadcrumbList,
+  홈은 WebSite/Blog/Person, 목록 페이지는 CollectionPage 를 내보냅니다.
+- **소셜 이미지** — 대표 이미지가 없는 글은 빌드 때 `/og/<slug>.png` 를 그립니다
+  (`src/lib/og.ts`, satori + resvg). frontmatter 에 `heroImage` 가 있으면 그쪽이 우선입니다.
+  폰트는 `src/assets/fonts/` 에 있고 배포본에는 포함되지 않습니다.
+- **사이트맵** — `/sitemap.xml` 직접 생성. 목록 페이지의 `lastmod` 는 그 목록에 속한
+  가장 최근 글 날짜를 씁니다. 페이지네이션(noindex)은 제외합니다.
+- **RSS** — `/feed.xml`. `content:encoded` 에 본문 HTML 전체가 들어가고 상대 경로는
+  절대 URL 로 바뀝니다.
+- **llms.txt** — `/llms.txt`. 구글 검색은 이 파일을 무시한다고 공식 문서에 명시돼 있어
+  랭킹에는 영향이 없고, 다른 AI 검색 서비스용입니다.
+
+GitHub Pages 는 응답 헤더를 설정할 수 없어 CSP·X-Frame-Options 같은 보안 헤더는
+붙일 수 없습니다 (HSTS 는 기본 제공).
+
 ## 배포
 
 `master` 에 푸시하면 `.github/workflows/deploy.yml` 이 빌드해서 GitHub Pages 로 배포합니다.

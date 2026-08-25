@@ -115,3 +115,12 @@ export function countBy(posts: Post[], pick: (p: Post) => string[]) {
 /** 카테고리가 비어 있는 글은 Etc 로 묶는다. 목록/집계에서 빠지지 않게. */
 export const postCategories = (post: Post): string[] =>
   post.data.categories.length > 0 ? post.data.categories : ['Etc'];
+
+/**
+ * RSS 본문용 HTML. 콘텐츠 레이어가 빌드 때 렌더해둔 결과를 그대로 쓴다.
+ * 리더는 상대 경로를 못 푸니 이미지·링크를 절대 URL 로 바꾼다.
+ */
+export function renderedHtml(post: Post, site: URL | string): string {
+  const html = (post as unknown as { rendered?: { html?: string } }).rendered?.html ?? '';
+  return html.replace(/(src|href)="\/(?!\/)/g, (_m, attr) => `${attr}="${new URL('/', site).href}`);
+}

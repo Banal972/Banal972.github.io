@@ -5,6 +5,7 @@ import PostGrid from '~/components/PostGrid.astro';
 import CategoryChips from '~/components/CategoryChips.astro';
 import Pagination from '~/components/Pagination.astro';
 import { SITE } from '~/consts';
+import { siteSchema } from '~/lib/schema';
 import { countBy, getPosts, postCategories, withPinned } from '~/lib/posts';
 
 const all = withPinned(await getPosts());
@@ -14,7 +15,7 @@ const totalPages = Math.max(1, Math.ceil(all.length / SITE.postsPerPage));
 const [featured, ...rest] = all.slice(0, SITE.postsPerPage);
 ---
 
-<Base title={SITE.title}>
+<Base title={SITE.title} schema={siteSchema()}>
   <section class="hero">
     <div class="container">
       <p class="eyebrow">Banal.log</p>

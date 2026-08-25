@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 
 import Base from '~/layouts/Base.astro';
+import { collectionSchema } from '~/lib/schema';
 import PostGrid from '~/components/PostGrid.astro';
 import CategoryChips from '~/components/CategoryChips.astro';
 import {
@@ -37,9 +38,21 @@ interface Props {
 
 const { name, posts, categories, total } = Astro.props;
 const label = categoryLabel(name);
+const description = `${label} 카테고리의 글 ${posts.length}편.`;
+const schema = collectionSchema({
+  name: label,
+  description,
+  path: `/categories/${slugify(name)}/`,
+  crumbs: [
+    { name: '홈', path: '/' },
+    { name: '카테고리', path: '/categories/' },
+    { name: label, path: `/categories/${slugify(name)}/` },
+  ],
+  posts,
+});
 ---
 
-<Base title={label} description={`${label} 카테고리의 글 ${posts.length}편.`}>
+<Base title={label} description={description} schema={schema}>
   <section class="container page-head">
     <p class="eyebrow">Category</p>
     <h1>{label}</h1>
