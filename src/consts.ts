@@ -26,16 +26,6 @@ export const ADSENSE = {
   client: "ca-pub-2915330933826179",
 } as const;
 
-/**
- * giscus 댓글. GitHub Discussions 를 켜고 https://giscus.app 에서
- * repoId / categoryId 를 발급받아 채우면 자동으로 활성화된다.
- */
-export const GISCUS = {
-  repo: "Banal972/Banal972.github.io",
-  repoId: "",
-  category: "Announcements",
-  categoryId: "",
-} as const;
 
 export const NAV = [
   { label: "홈", href: "/" },

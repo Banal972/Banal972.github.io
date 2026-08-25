@@ -4,7 +4,6 @@ import type { GetStaticPaths } from 'astro';
 
 import Base from '~/layouts/Base.astro';
 import Toc from '~/components/Toc.astro';
-import Giscus from '~/components/Giscus.astro';
 import PostCard from '~/components/PostCard.astro';
 import { SITE } from '~/consts';
 import {
@@ -135,8 +134,6 @@ const hasToc = tocHeadings.length >= 2;
           )
         }
       </nav>
-
-      <Giscus />
     </div>
 
     {

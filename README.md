@@ -36,7 +36,7 @@ pin: false # true 면 홈 상단 고정
 
 ## 설정
 
-- `src/consts.ts` — 사이트 제목, 저자, 페이지당 글 수, AdSense, giscus, 내비게이션, 카테고리 표시명/색
+- `src/consts.ts` — 사이트 제목, 저자, 페이지당 글 수, AdSense, 내비게이션, 카테고리 표시명/색
 - `src/styles/global.css` — 색·여백·타이포 토큰. UI 손볼 때 여기부터 보면 됩니다.
 - `astro.config.mjs` — 사이트 URL, URL 형식, 마크다운 파이프라인
 
