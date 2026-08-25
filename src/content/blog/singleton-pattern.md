@@ -1,8 +1,8 @@
 ---
 title: "싱글턴 패턴 과 Zustand"
 date: 2024-09-12
-categories: ["Discover", "React"]
-tags: ["Discover", "React", "Design-pattren"]
+categories: ["React"]
+tags: ["디자인 패턴", "zustand", "상태관리"]
 ---
 
 ### 개요

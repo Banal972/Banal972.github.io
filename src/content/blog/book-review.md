@@ -1,8 +1,8 @@
 ---
 title: "코딩 자율학습 - 컴퓨터 구조와 운영체제 리뷰"
 date: 2025-07-10
-categories: ["Books"]
-tags: ["Books"]
+categories: ["Blog"]
+tags: ["독서", "컴퓨터 구조", "운영체제"]
 ---
 
 <div style="text-align: left;">

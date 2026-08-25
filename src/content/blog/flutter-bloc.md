@@ -1,8 +1,8 @@
 ---
 title: "BLoC패턴을 이용한 간단한 stream구축"
 date: 2025-01-21
-categories: ["Discover", "Flutter"]
-tags: ["Discover", "Flutter", "Design-pattren"]
+categories: ["Flutter"]
+tags: ["bloc", "상태관리", "디자인 패턴"]
 ---
 
 ### BLoC Pattern이란?

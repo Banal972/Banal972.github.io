@@ -1,8 +1,8 @@
 ---
 title: "rn의 bottom-sheet 사용법"
 date: 2024-10-26
-categories: ["Discover", "Native"]
-tags: ["Discover", "Native", "Expo"]
+categories: ["Native"]
+tags: ["expo", "bottom-sheet", "UI"]
 ---
 
 ### bottom-sheet

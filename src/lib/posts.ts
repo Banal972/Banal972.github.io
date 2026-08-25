@@ -18,15 +18,9 @@ export function withPinned(posts: Post[]): Post[] {
 
 export const postUrl = (post: Post) => `/posts/${post.id}/`;
 
-/**
- * 카드에 표시할 대표 카테고리.
- * Chirpy 시절 거의 모든 글에 `Discover` 가 부모 카테고리로 붙어 있어서,
- * 실제 주제를 드러내는 두 번째 카테고리를 우선한다.
- */
+/** 카드에 표시할 대표 카테고리. 글마다 카테고리는 하나뿐이다. */
 export function primaryCategory(post: Post): string {
-  const cats = post.data.categories;
-  if (cats.length === 0) return 'Etc';
-  return cats.find((c) => c !== 'Discover') ?? cats[0];
+  return post.data.categories[0] ?? 'Etc';
 }
 
 export const categoryLabel = (name: string) => CATEGORY_META[name]?.label ?? name;

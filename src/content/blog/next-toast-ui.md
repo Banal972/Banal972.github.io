@@ -1,8 +1,8 @@
 ---
 title: "Next.js에서 Toast ui 에디터 사용하기"
 date: 2024-05-24
-categories: ["Discover", "Nextjs"]
-tags: ["Discover", "Nextjs"]
+categories: ["Nextjs"]
+tags: ["toast-ui", "에디터"]
 ---
 
 ### 개요

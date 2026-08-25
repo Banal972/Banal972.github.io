@@ -1,8 +1,8 @@
 ---
 title: "함수형 프로그래밍 - (1)"
 date: 2024-09-25
-categories: ["Discover", "Functional-programming"]
-tags: ["Discover", "Functional-programming"]
+categories: ["Foundation"]
+tags: ["함수형 프로그래밍"]
 ---
 
 <!-- #### 이 문서를 읽기전에

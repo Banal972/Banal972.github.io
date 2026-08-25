@@ -1,8 +1,8 @@
 ---
 title: "Typescript는 왜 go를 선택했을까"
 date: 2025-03-13
-categories: ["Discover"]
-tags: ["Discover"]
+categories: ["Javascript"]
+tags: ["typescript", "컴파일러", "go"]
 ---
 
 ### Typescript란?

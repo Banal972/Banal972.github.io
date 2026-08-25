@@ -1,8 +1,8 @@
 ---
 title: "Next-auth을 통한 일관된 인증 상태 관리"
 date: 2024-11-05
-categories: ["Discover", "Nextjs"]
-tags: ["Discover", "Nextjs"]
+categories: ["Nextjs"]
+tags: ["next-auth", "인증"]
 ---
 
 ### 문제

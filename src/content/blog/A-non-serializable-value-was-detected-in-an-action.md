@@ -1,8 +1,8 @@
 ---
 title: "A non‐serializable value was detected in an action 오류 해결"
 date: 2024-06-24
-categories: ["Discover"]
-tags: ["Discover"]
+categories: ["React"]
+tags: ["redux-toolkit", "모달", "트러블슈팅"]
 ---
 
 #### 개요

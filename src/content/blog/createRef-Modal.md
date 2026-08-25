@@ -1,8 +1,8 @@
 ---
 title: "CreateRef을 이용한 Modal 만들기"
 date: 2025-02-01
-categories: ["Discover", "React", "Native"]
-tags: ["Discover", "React", "Native"]
+categories: ["Native"]
+tags: ["모달", "ref"]
 ---
 
 ### 개요

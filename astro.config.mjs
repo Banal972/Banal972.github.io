@@ -12,6 +12,14 @@ export default defineConfig({
   trailingSlash: 'always',
   build: { format: 'directory' },
 
+  // 카테고리 정리로 없어진 Chirpy 시절 분류들. 색인된 링크를 목록으로 흘려보낸다.
+  redirects: {
+    '/categories/discover/': '/categories/',
+    '/categories/books/': '/categories/blog/',
+    '/categories/etc/': '/categories/foundation/',
+    '/categories/functional-programming/': '/categories/foundation/',
+  },
+
   markdown: {
     // Astro 7 기본 엔진(Sätteri)은 CommonMark 를 엄격히 따라
     // `**‘대리’**라는` 같은 한글 인접 강조를 볼드로 처리하지 않는다.

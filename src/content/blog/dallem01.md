@@ -1,8 +1,8 @@
 ---
 title: "RSC에 async를 붙일때 Jest 오류 해결"
 date: 2024-07-26
-categories: ["Discover", "Nextjs"]
-tags: ["Discover", "Nextjs"]
+categories: ["Nextjs"]
+tags: ["RSC", "jest", "테스트"]
 ---
 
 ## 문제 정의

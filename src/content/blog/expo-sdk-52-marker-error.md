@@ -1,8 +1,8 @@
 ---
 title: "Expo SDK 52 Map 마커 오류 해결법"
 date: 2025-02-02
-categories: ["Discover", "React", "Native"]
-tags: ["Discover", "React", "Native"]
+categories: ["Native"]
+tags: ["expo", "지도", "트러블슈팅"]
 ---
 
 ### 개요

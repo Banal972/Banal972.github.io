@@ -1,8 +1,8 @@
 ---
 title: "함수형 프로그래밍의 입문기"
 date: 2024-09-12
-categories: ["Discover", "Functional-programming"]
-tags: ["Discover", "Functional-programming"]
+categories: ["Foundation"]
+tags: ["함수형 프로그래밍"]
 ---
 
 ### 함수형 프로그래밍 이란?

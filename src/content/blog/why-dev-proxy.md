@@ -1,8 +1,8 @@
 ---
 title: "Vite, CRA, Next 등 여러 dev 환경에서 proxy가 되는 이유"
 date: 2025-10-29
-categories: ["Discover"]
-tags: ["Discover"]
+categories: ["Foundation"]
+tags: ["proxy", "vite", "개발 환경"]
 ---
 
 개발을 하다 보면 개발(dev) 환경에서 API를 요청할 때  

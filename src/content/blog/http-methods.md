@@ -1,8 +1,8 @@
 ---
 title: "HTTP 메서드에 대해서"
 date: 2023-12-22
-categories: ["Etc"]
-tags: ["Etc"]
+categories: ["Foundation"]
+tags: ["HTTP", "네트워크"]
 ---
 
 ### HTTP 메서드에 대해서

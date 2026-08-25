@@ -1,8 +1,8 @@
 ---
 title: "Expo 카카오 인앱 로그인 오류 해결"
 date: 2025-01-28
-categories: ["Discover", "Native"]
-tags: ["Discover", "Native"]
+categories: ["Native"]
+tags: ["expo", "카카오 로그인", "트러블슈팅"]
 ---
 
 ### 문제

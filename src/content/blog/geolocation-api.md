@@ -1,8 +1,8 @@
 ---
 title: "Geolocation API을 이용해서 현재 위치를 가져와보자"
 date: 2024-04-15
-categories: ["Discover", "React"]
-tags: ["Discover", "React"]
+categories: ["React"]
+tags: ["Web API", "위치"]
 ---
 
 #### 개요

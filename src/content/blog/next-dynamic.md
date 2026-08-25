@@ -1,8 +1,8 @@
 ---
 title: "Next.js에서 SSR을 지원하지 않는 컴포넌트 다루기"
 date: 2024-06-01
-categories: ["Discover", "Nextjs"]
-tags: ["Discover", "Nextjs"]
+categories: ["Nextjs"]
+tags: ["SSR", "dynamic import"]
 ---
 
 ### 개요

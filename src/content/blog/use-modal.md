@@ -2,7 +2,7 @@
 title: "리액트에서 귀찮았던 모달을 간편하게 만들어보자"
 date: 2025-10-07
 categories: ["React"]
-tags: ["React"]
+tags: ["모달", "커스텀 훅", "상태관리"]
 ---
 
 React로 개발하다보면, DropDown 이나 Modal같은 것들을 굉장히 자주 만들게 됩니다.

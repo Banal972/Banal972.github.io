@@ -2,7 +2,7 @@
 title: "뭐? Styled-Components가 끝났다고? 성능을 40% 개선한 Fork 이야기"
 date: 2025-10-02
 categories: ["React"]
-tags: ["styled-components", "React", "성능 최적화", "CSS-in-JS"]
+tags: ["styled-components", "CSS-in-JS", "성능 최적화"]
 ---
 
 제목을 보고 놀라신 분들이 많을 거라 생각합니다. 저 역시 그랬으니까요.

@@ -1,8 +1,8 @@
 ---
 title: "필수인 타입스크립트 유틸리티 타입"
 date: 2024-09-05
-categories: ["Discover"]
-tags: ["Discover"]
+categories: ["Javascript"]
+tags: ["typescript", "유틸리티 타입"]
 ---
 
 ### 유틸리티 타입?

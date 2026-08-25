@@ -2,7 +2,7 @@
 title: "1초마다 유튜브 영상이 처음부터 다시 재생된 이유"
 date: 2026-08-25
 categories: ["React"]
-tags: ["React", "dangerouslySetInnerHTML", "memo", "성능 최적화"]
+tags: ["dangerouslySetInnerHTML", "memo", "성능 최적화"]
 ---
 
 외부 에디터에서 작성한 HTML을 그대로 화면에 뿌려야 하는 경우가 있습니다.  

@@ -93,10 +93,16 @@ tags: ["React", "성능 최적화"]
   - `~해보자` — "리액트에서 귀찮았던 모달을 간편하게 만들어보자"
   - 경고형 — "flutter 개발자라면 iOS26으로 업데이트 하는것은 잠시 멈춰주세요"
   - 의문형 — "뭐? Styled-Components가 끝났다고?"
-- `categories` 는 기존 값 중에서 고릅니다:
-  `React` `Nextjs` `Native` `Expo` `Flutter` `Javascript`
-  `Functional-programming` `Design-pattren` `Discover` `Blog` `Books` `Etc`
-  주제를 가장 잘 드러내는 하나면 충분합니다.
+- `categories` 는 **정확히 하나**만 넣습니다. 아래 값 중에서 고릅니다:
+  - `React` — 웹 React
+  - `Nextjs` — Next.js
+  - `Native` — React Native / Expo
+  - `Flutter` — Flutter
+  - `Javascript` — JS · TS 언어 자체
+  - `Foundation` — HTTP, 함수형, 빌드 도구 같은 기초·개념
+  - `Blog` — 회고, 후기, 일상, 독서
+  둘 이상 넣으면 스키마 검증에서 빌드가 실패합니다.
+  세부 키워드(`expo`, `성능 최적화`, `디자인 패턴` 등)는 `tags` 로 내립니다.
 - `date` 는 오늘 날짜입니다.
 - `description` 은 생략합니다 (본문 앞부분에서 자동 생성됩니다).
 - 대표 이미지가 있으면 `heroImage` 를 넣고, 없으면 생략합니다

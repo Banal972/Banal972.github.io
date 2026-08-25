@@ -1,8 +1,8 @@
 ---
 title: "리액트 네이티브 맵뷰 마커 크래시 오류 해결"
 date: 2025-07-11
-categories: ["Discover", "React", "Native"]
-tags: ["Discover", "React", "Native"]
+categories: ["Native"]
+tags: ["지도", "크래시", "트러블슈팅"]
 ---
 
 ### 참고버전

@@ -1,8 +1,8 @@
 ---
 title: "Next.js을 이용해 PWA(프로그래시브 웹 어플리케이션) 구현"
 date: 2024-11-08
-categories: ["Discover", "Nextjs"]
-tags: ["Discover", "Nextjs"]
+categories: ["Nextjs"]
+tags: ["PWA", "next-pwa"]
 ---
 
 ### 문제

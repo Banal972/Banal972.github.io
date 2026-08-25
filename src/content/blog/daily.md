@@ -2,7 +2,7 @@
 title: "7월 일상다반사"
 date: 2025-07-09
 categories: ["Blog"]
-tags: ["Blog"]
+tags: ["일상"]
 ---
 
 ### 오늘의 일상 다반사

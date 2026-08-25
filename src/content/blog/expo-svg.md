@@ -1,8 +1,8 @@
 ---
 title: "expo에서 svg를 사용하는법"
 date: 2024-10-12
-categories: ["Discover", "Native"]
-tags: ["Discover", "Native", "Expo"]
+categories: ["Native"]
+tags: ["expo", "svg"]
 ---
 
 #### 개요

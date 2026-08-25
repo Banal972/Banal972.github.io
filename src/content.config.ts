@@ -16,7 +16,8 @@ const blog = defineCollection({
     updated: z.coerce.date().optional(),
     /** 비워두면 본문 앞부분에서 자동 생성한다. */
     description: z.string().optional(),
-    categories: z.array(z.string()).default([]),
+    /** 주제 축은 하나만 쓴다. 세부 키워드는 tags 로 내린다. */
+    categories: z.array(z.string()).max(1).default([]),
     tags: z.array(z.string()).default([]),
     /** `/assets/img/...` 처럼 public 기준 절대 경로 */
     heroImage: z.string().optional(),

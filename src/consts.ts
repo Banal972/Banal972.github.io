@@ -40,16 +40,12 @@ export const NAV = [
  * 여기 없는 카테고리는 자동으로 회색 기본값을 쓴다.
  */
 export const CATEGORY_META: Record<string, { label: string; hue: number }> = {
-  React: { label: "React", hue: 199 },
-  Nextjs: { label: "Next.js", hue: 220 },
   Native: { label: "React Native", hue: 265 },
-  Expo: { label: "Expo", hue: 250 },
+  Nextjs: { label: "Next.js", hue: 220 },
+  React: { label: "React", hue: 199 },
+  Foundation: { label: "기초·개념", hue: 160 },
+  Blog: { label: "회고·기록", hue: 340 },
+  Javascript: { label: "JS · TS", hue: 45 },
   Flutter: { label: "Flutter", hue: 205 },
-  Javascript: { label: "JavaScript", hue: 45 },
-  "Functional-programming": { label: "함수형 프로그래밍", hue: 160 },
-  "Design-pattren": { label: "디자인 패턴", hue: 285 },
-  Discover: { label: "Discover", hue: 20 },
-  Blog: { label: "회고", hue: 340 },
-  Books: { label: "독서", hue: 130 },
   Etc: { label: "Etc", hue: 210 },
 };

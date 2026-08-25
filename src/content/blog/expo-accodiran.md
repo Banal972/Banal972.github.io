@@ -1,8 +1,8 @@
 ---
 title: "Expo에서 아코디언을 만들어보자"
 date: 2024-10-12
-categories: ["Discover", "Native"]
-tags: ["Discover", "Native", "Expo"]
+categories: ["Native"]
+tags: ["expo", "애니메이션", "아코디언"]
 ---
 
 #### 개요
