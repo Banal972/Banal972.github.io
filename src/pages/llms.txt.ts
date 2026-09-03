@@ -1,6 +1,6 @@
-import type { APIRoute } from 'astro';
+import type { APIRoute } from "astro";
 
-import { SITE } from '~/consts';
+import { SITE } from "~/consts";
 import {
   categoryLabel,
   countBy,
@@ -9,7 +9,7 @@ import {
   postCategories,
   postUrl,
   primaryCategory,
-} from '~/lib/posts';
+} from "~/lib/posts";
 
 /**
  * llms.txt — AI 크롤러용 사이트 안내.
@@ -32,8 +32,11 @@ export const GET: APIRoute = async ({ site }) => {
       const list = byCategory.get(name);
       if (!list?.length) return null;
       const lines = list
-        .map((post) => `- [${post.data.title}](${abs(postUrl(post))}): ${excerpt(post, 110)}`)
-        .join('\n');
+        .map(
+          (post) =>
+            `- [${post.data.title}](${abs(postUrl(post))}): ${excerpt(post, 110)}`,
+        )
+        .join("\n");
       return `## ${categoryLabel(name)}\n\n${lines}`;
     })
     .filter(Boolean);
@@ -47,14 +50,14 @@ ${SITE.author.name}이 개발하며 마주친 문제와 그 해결 과정을 기
 
 - 작성자: ${SITE.author.name} (${SITE.author.github})
 - 언어: 한국어
-- 전체 글 목록: ${abs('/archives/')}
-- RSS: ${abs('/feed.xml')}
-- 사이트맵: ${abs('/sitemap.xml')}
+- 전체 글 목록: ${abs("/archives/")}
+- RSS: ${abs("/feed.xml")}
+- 사이트맵: ${abs("/sitemap.xml")}
 
-${sections.join('\n\n')}
+${sections.join("\n\n")}
 `;
 
   return new Response(body, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 };

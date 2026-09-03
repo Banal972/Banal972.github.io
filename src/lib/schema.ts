@@ -1,4 +1,4 @@
-import { SITE } from '~/consts';
+import { SITE } from "~/consts";
 import {
   categoryLabel,
   excerpt,
@@ -6,44 +6,44 @@ import {
   primaryCategory,
   slugify,
   type Post,
-} from '~/lib/posts';
+} from "~/lib/posts";
 
 const abs = (path: string) => new URL(path, SITE.url).href;
 
-const PERSON_ID = abs('/#person');
-const SITE_ID = abs('/#website');
+const PERSON_ID = abs("/#person");
+const SITE_ID = abs("/#website");
 
 /** 사이트 전역 그래프. 홈에서 한 번만 내보낸다. */
 export function siteSchema() {
   return {
-    '@context': 'https://schema.org',
-    '@graph': [
+    "@context": "https://schema.org",
+    "@graph": [
       {
-        '@type': 'Person',
-        '@id': PERSON_ID,
+        "@type": "Person",
+        "@id": PERSON_ID,
         name: SITE.author.name,
         url: SITE.url,
         image: abs(SITE.author.avatar),
         sameAs: [SITE.author.github],
-        jobTitle: '프론트엔드 개발자',
+        jobTitle: "프론트엔드 개발자",
       },
       {
-        '@type': 'WebSite',
-        '@id': SITE_ID,
+        "@type": "WebSite",
+        "@id": SITE_ID,
         url: SITE.url,
         name: SITE.title,
         description: SITE.description,
         inLanguage: SITE.lang,
-        publisher: { '@id': PERSON_ID },
+        publisher: { "@id": PERSON_ID },
       },
       {
-        '@type': 'Blog',
-        '@id': abs('/#blog'),
+        "@type": "Blog",
+        "@id": abs("/#blog"),
         url: SITE.url,
         name: SITE.title,
         description: SITE.description,
         inLanguage: SITE.lang,
-        author: { '@id': PERSON_ID },
+        author: { "@id": PERSON_ID },
       },
     ],
   };
@@ -55,9 +55,9 @@ interface Crumb {
 }
 
 const breadcrumb = (items: Crumb[]) => ({
-  '@type': 'BreadcrumbList',
+  "@type": "BreadcrumbList",
   itemListElement: items.map((item, i) => ({
-    '@type': 'ListItem',
+    "@type": "ListItem",
     position: i + 1,
     name: item.name,
     item: abs(item.path),
@@ -71,28 +71,41 @@ export function postSchema(post: Post) {
   const image = abs(post.data.heroImage ?? `/og/${post.id}.png`);
 
   return {
-    '@context': 'https://schema.org',
-    '@graph': [
+    "@context": "https://schema.org",
+    "@graph": [
       {
-        '@type': 'BlogPosting',
-        '@id': `${url}#article`,
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
         headline: post.data.title.slice(0, 110),
         description: excerpt(post, 150),
         url,
-        mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
         datePublished: post.data.date.toISOString(),
         dateModified: (post.data.updated ?? post.data.date).toISOString(),
         image,
         inLanguage: SITE.lang,
         articleSection: categoryLabel(category),
-        keywords: post.data.tags.join(', '),
-        author: { '@type': 'Person', '@id': PERSON_ID, name: SITE.author.name, url: SITE.url },
-        publisher: { '@type': 'Person', '@id': PERSON_ID, name: SITE.author.name, url: SITE.url },
-        isPartOf: { '@id': abs('/#blog') },
+        keywords: post.data.tags.join(", "),
+        author: {
+          "@type": "Person",
+          "@id": PERSON_ID,
+          name: SITE.author.name,
+          url: SITE.url,
+        },
+        publisher: {
+          "@type": "Person",
+          "@id": PERSON_ID,
+          name: SITE.author.name,
+          url: SITE.url,
+        },
+        isPartOf: { "@id": abs("/#blog") },
       },
       breadcrumb([
-        { name: '홈', path: '/' },
-        { name: categoryLabel(category), path: `/categories/${slugify(category)}/` },
+        { name: "홈", path: "/" },
+        {
+          name: categoryLabel(category),
+          path: `/categories/${slugify(category)}/`,
+        },
         { name: post.data.title, path: postUrl(post) },
       ]),
     ],
@@ -110,21 +123,21 @@ export function collectionSchema(options: {
   const { name, description, path, crumbs, posts } = options;
 
   return {
-    '@context': 'https://schema.org',
-    '@graph': [
+    "@context": "https://schema.org",
+    "@graph": [
       {
-        '@type': 'CollectionPage',
-        '@id': `${abs(path)}#collection`,
+        "@type": "CollectionPage",
+        "@id": `${abs(path)}#collection`,
         url: abs(path),
         name,
         description,
         inLanguage: SITE.lang,
-        isPartOf: { '@id': SITE_ID },
+        isPartOf: { "@id": SITE_ID },
         mainEntity: {
-          '@type': 'ItemList',
+          "@type": "ItemList",
           numberOfItems: posts.length,
           itemListElement: posts.slice(0, 20).map((post, i) => ({
-            '@type': 'ListItem',
+            "@type": "ListItem",
             position: i + 1,
             url: abs(postUrl(post)),
             name: post.data.title,
@@ -139,28 +152,28 @@ export function collectionSchema(options: {
 /** 소개 페이지 */
 export function profileSchema() {
   return {
-    '@context': 'https://schema.org',
-    '@graph': [
+    "@context": "https://schema.org",
+    "@graph": [
       {
-        '@type': 'ProfilePage',
-        '@id': abs('/about/#profile'),
-        url: abs('/about/'),
+        "@type": "ProfilePage",
+        "@id": abs("/about/#profile"),
+        url: abs("/about/"),
         name: `${SITE.author.name} 소개`,
         inLanguage: SITE.lang,
-        isPartOf: { '@id': SITE_ID },
-        mainEntity: { '@id': PERSON_ID },
+        isPartOf: { "@id": SITE_ID },
+        mainEntity: { "@id": PERSON_ID },
       },
       {
-        '@type': 'Person',
-        '@id': PERSON_ID,
+        "@type": "Person",
+        "@id": PERSON_ID,
         name: SITE.author.name,
         url: SITE.url,
         image: abs(SITE.author.avatar),
         sameAs: [SITE.author.github],
       },
       breadcrumb([
-        { name: '홈', path: '/' },
-        { name: '소개', path: '/about/' },
+        { name: "홈", path: "/" },
+        { name: "소개", path: "/about/" },
       ]),
     ],
   };

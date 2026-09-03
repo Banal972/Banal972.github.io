@@ -6,28 +6,29 @@ tags: ["next-auth", "인증"]
 ---
 
 ### 문제
-기존에 했던 프로젝트에서 next.js에서 지원하는 cookies를 사용해서 로그인을 구현했습니다. 
-하지만 로그인 직후의 client측에서 상태를 변화하는 것을 감지해야 client 측에서 로그인 상태에 따른 화면을 재랜더링을 해야할 필요가 있었고, 또한 로그인 관련 로직을 여러갈래로 복잡하게 연결되어있던 부분을 한번에 관리하기 위해서 Next-auth를 사용하기로 결정했습니다.
 
+기존에 했던 프로젝트에서 next.js에서 지원하는 cookies를 사용해서 로그인을 구현했습니다.
+하지만 로그인 직후의 client측에서 상태를 변화하는 것을 감지해야 client 측에서 로그인 상태에 따른 화면을 재랜더링을 해야할 필요가 있었고, 또한 로그인 관련 로직을 여러갈래로 복잡하게 연결되어있던 부분을 한번에 관리하기 위해서 Next-auth를 사용하기로 결정했습니다.
 
 ### 해결
 
 next-auth에서는 v4 버전과 v5 버전이 있는데 app router를 자주 사용하는 저는 app router 기준으로 업데이트된 v5 버전을 사용하기로 정했습니다.
 
-```npm install next-auth@beta```로 v5 버전을 설치하고
-```npx auth secret```을 통해 Next.js의 규칙을 준수하여 .env파일에 AUTH_SECRET을 추가해줍니다.
+`npm install next-auth@beta`로 v5 버전을 설치하고
+`npx auth secret`을 통해 Next.js의 규칙을 준수하여 .env파일에 AUTH_SECRET을 추가해줍니다.
 
 auth.ts파일을 생성해서
+
 ```ts
 // auth.ts
-import NextAuth from "next-auth"
- 
+import NextAuth from "next-auth";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [],
-})
+});
 ```
-해당 코드를 입력하여 Next-auth의 기본세팅을 끝냈습니다.
 
+해당 코드를 입력하여 Next-auth의 기본세팅을 끝냈습니다.
 
 같이 달램의 로그인은 소셜로그인이 없이 기본 form으로 진행되기 떄문에 Next-auth에서 providers에 Credentials을 추가해서 로그인을 구현할 수 있었습니다.
 
@@ -74,6 +75,7 @@ providers: [
 이렇게 Credential을 통해 email폼과 password폼을 전달받고 fetch로 해당 api와 연결하여 accessToken을 받아서 next.js의 session에서 관리할 수 있었습니다.
 
 로그인을 할 경우 server action으로 전달하거나 client에서 전달할 수 있습니다.
+
 ```ts
 // server action으로 전달할 경우
 <form
@@ -86,11 +88,11 @@ providers: [
 
 ```ts
 const credentialsAction = (formData: FormData) => {
-    signIn("credentials", formData)
-}
+  signIn("credentials", formData);
+};
 ```
 
-이렇게 하면 간단하게 로그인을 구현하고 한번에 next-auth의 providers을 이용해서 로그인 로직을 한번에 관리가 가능하고 여러가지 많은 설정을 할 수 있었습니다. 
+이렇게 하면 간단하게 로그인을 구현하고 한번에 next-auth의 providers을 이용해서 로그인 로직을 한번에 관리가 가능하고 여러가지 많은 설정을 할 수 있었습니다.
 
 Next-auth에서 로그인 세션정보을 가져올경우 next-auth에서 해당 auth.ts 파일을 통해서 간단하게 정보를 가져올수도 있고 client 측에서는 자동으로 재랜더링을 해주기 때문에 더욱 간단하게 관리를 할 수 있게 되었습니다.
 
@@ -98,7 +100,7 @@ Next-auth에서 로그인 세션정보을 가져올경우 next-auth에서 해당
 // 서버사이드에서 로그인 세션
 export default async function UserAvatar() {
   const session = await auth()
- 
+
   if (!session?.user) return null
   ...
 ```
@@ -107,7 +109,7 @@ export default async function UserAvatar() {
 // 클라이언트 사이드에서 로그인 세션
 "use client"
 import { useSession } from "next-auth/react"
- 
+
 export default function Dashboard() {
   const { data: session } = useSession()
 ```
@@ -118,13 +120,13 @@ export default function Dashboard() {
 
 자세한것은 [next-auth 공식 문서](https://authjs.dev/)여기서 확인 할 수 있었습니다.
 
-
 저는 이렇게 auth.ts을 관리하여 로그인 로직을 관리하였습니다.
-```ts
-import NextAuth from "next-auth"
-import Credential from "next-auth/providers/credentials"
 
-import { IErrorResponse } from "@/types/mypage/mypage"
+```ts
+import NextAuth from "next-auth";
+import Credential from "next-auth/providers/credentials";
+
+import { IErrorResponse } from "@/types/mypage/mypage";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -134,33 +136,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        const { email, password } = credentials
+        const { email, password } = credentials;
 
-        const response = await fetch(
-          `API주소`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email,
-              password,
-            }),
+        const response = await fetch(`API주소`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        )
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        });
 
         if (!response.ok) {
-          const errorResponse: IErrorResponse = await response.json()
-          throw new Error(errorResponse.message)
+          const errorResponse: IErrorResponse = await response.json();
+          throw new Error(errorResponse.message);
         }
 
-        const data = await response.json()
+        const data = await response.json();
 
         return {
           ...data,
           accessToken: data.token,
-        }
+        };
       },
     }),
   ],
@@ -170,32 +169,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     signIn: async () => {
-      return true
+      return true;
     },
     jwt: async ({ token, user }) => {
-      const newToken = { ...token }
+      const newToken = { ...token };
       if (user?.accessToken) {
-        newToken.accessToken = user.accessToken
+        newToken.accessToken = user.accessToken;
       }
-      return newToken
+      return newToken;
     },
     session: async ({ session, token }) => {
-      const newSession = { ...session }
+      const newSession = { ...session };
       if (token?.accessToken) {
-        newSession.accessToken = token.accessToken
+        newSession.accessToken = token.accessToken;
       }
-      return newSession
+      return newSession;
     },
     authorized: async ({ auth }) => {
-      return !!auth
+      return !!auth;
     },
   },
-})
+});
 ```
 
 ### 후기
+
 next-auth는 기본 form을 제외하고도 페이스북, 구글, 깃헙, 카카오등 여러가지 OAuth또한 다 지원합니다.
 
 세션과 토큰 등 여러가지를 자동으로 관리해주고 보안 또한 CSRF 보호, 암호화된 JWT 토큰, 서버 세션 저장 등 보안에 필요한 설정을 기본적으로 제공해줍니다.
 
-다양한 콜백을 지원해서 유연성 또한 갖추어있기 때문에 Next.js을 사용 할 경우 직접 구현도 좋지만 Next-auth를 고려해보는것도 나쁘지 않은것 같았던것 같습니다.  
+다양한 콜백을 지원해서 유연성 또한 갖추어있기 때문에 Next.js을 사용 할 경우 직접 구현도 좋지만 Next-auth를 고려해보는것도 나쁘지 않은것 같았던것 같습니다.

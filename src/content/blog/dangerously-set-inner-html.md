@@ -53,7 +53,12 @@ export const ProductInfoHtml = memo(function ProductInfoHtml({
 }: ProductInfoHtmlProps) {
   const normalizedHtml = normalizeProductInfoHtml(html);
 
-  return <div className={className} dangerouslySetInnerHTML={{ __html: normalizedHtml }} />;
+  return (
+    <div
+      className={className}
+      dangerouslySetInnerHTML={{ __html: normalizedHtml }}
+    />
+  );
 });
 ```
 
@@ -67,7 +72,7 @@ export const ProductInfoHtml = memo(function ProductInfoHtml({
 원본 HTML을 그대로 쓰는 게 아니라 **정규화를 거치고 있었던 게 문제였습니다.**
 
 ```ts
-const normalized = html.replace(IFRAME_PATTERN, /* ... */);
+const normalized = html.replace(IFRAME_PATTERN /* ... */);
 ```
 
 `String.replace`는 **내용이 같아도 항상 새 문자열을 반환합니다.**
@@ -79,10 +84,10 @@ const normalized = html.replace(IFRAME_PATTERN, /* ... */);
 ```ts
 /** 직전 변환 결과 1건 캐시. 같은 원본이면 동일한 문자열 참조를 재사용한다. */
 let lastRawHtml: string | null = null;
-let lastNormalizedHtml = '';
+let lastNormalizedHtml = "";
 
 export function normalizeProductInfoHtml(html?: string | null) {
-  if (!html) return '';
+  if (!html) return "";
 
   // 상세 화면은 카운트다운 때문에 1초마다 리렌더된다.
   // 원본이 그대로면 직전 결과를 재사용해 같은 문자열(===)을 돌려준다.
@@ -90,7 +95,7 @@ export function normalizeProductInfoHtml(html?: string | null) {
     return lastNormalizedHtml;
   }
 
-  const normalized = html.replace(IFRAME_PATTERN, /* ... */);
+  const normalized = html.replace(IFRAME_PATTERN /* ... */);
 
   lastRawHtml = html;
   lastNormalizedHtml = normalized;
@@ -111,7 +116,7 @@ export function normalizeProductInfoHtml(html?: string | null) {
 정규화가 하는 일은 외부 에디터에서 온 iframe을 반응형으로 만드는 것이었습니다.
 
 ```html
-<iframe width="780" height="780">
+<iframe width="780" height="780"></iframe>
 ```
 
 이렇게 크기가 고정으로 박혀 있으면 모바일에서 가로로 넘쳐서 잘립니다.  

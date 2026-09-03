@@ -6,6 +6,7 @@ tags: ["typescript", "유틸리티 타입"]
 ---
 
 ### 유틸리티 타입?
+
 기초의 타입스크립트만 배우다보면 타입정리가 하나도 되어있지 않거나 지저분한것을 많이 느낄수 있을겁니다.
 이러면 나중에 타입을 확인하기 어렵고 까다로우며 에러만 사라지면 되는 느낌으로 타입을 작성하는 자신을 볼 수 있습니다.
 
@@ -16,21 +17,25 @@ tags: ["typescript", "유틸리티 타입"]
 <br/>
 
 ### Partial
+
 Partial은 객체의 모든 프로퍼티를 선택적(optional)으로 할 수 있게 만듭니다.
 
 기본적으로
+
 ```jsx
 type Partial<T> = {
     [P in ketof T]? : T[P];
 }
 ```
+
 이런식으로 선택적으로 변경한 새로운 타입을 생성하게 됩니다.
 
 **예시**
-```jsx 
+
+```jsx
 interface People {
     age : number;
-    name : string   
+    name : string
 }
 
 type MyAge = Partial<People>
@@ -44,13 +49,14 @@ const my3 : MyAge = {name : "asdsad",age: 5}
 <br/>
 
 ### Omit
+
 Omit는 특정 속성만 제거한 타입을 정의합니다.
 
 ```jsx
 
 interface People {
     age : number;
-    name : string   
+    name : string
 }
 
 const age : Omit<People,"name"> = 0
@@ -60,19 +66,19 @@ const age : Omit<People,"name"> = 0
 <br/>
 
 ### Pick
+
 Pick은 특정 속성만 가져옵니다. Omit의 반대라고 생각 하시면 됩니다.
 
 ```jsx
 
 interface People {
     age : number;
-    name : string   
+    name : string
 }
 
 const age : Pick<People,"age"> = 0
 
 ```
-
 
 이렇게 제가 자주 사용하는 3가지의 유틸리티 함수를 소개 해드렸습니다.
 

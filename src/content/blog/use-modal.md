@@ -15,20 +15,24 @@ React로 개발하다보면, DropDown 이나 Modal같은 것들을 굉장히 자
 상태관리 최소화 하는 훅 만들기
 
 ```jsx
-    const useToggle = () => {
-        const [open, setOpen] = useState(false);
+const useToggle = () => {
+  const [open, setOpen] = useState(false);
 
-        const toggleHandler = useCallback(() => setOpen(prev => !prev), []);
-        const openHandler = useCallback(() => setOpen(true), []);
-        const closeHandler = useCallback(() => setOpen(false), []);
+  const toggleHandler = useCallback(() => setOpen((prev) => !prev), []);
+  const openHandler = useCallback(() => setOpen(true), []);
+  const closeHandler = useCallback(() => setOpen(false), []);
 
-        return {open, toggleHandler, openHandler, closeHandler}
-    }
+  return { open, toggleHandler, openHandler, closeHandler };
+};
 
-    const Modal = () => {
-        const {openHandler} = useToggle();
-        return <button type="button" onClick={openHandler}>열기</button>
-    }
+const Modal = () => {
+  const { openHandler } = useToggle();
+  return (
+    <button type="button" onClick={openHandler}>
+      열기
+    </button>
+  );
+};
 ```
 
 이렇게 하면 똑같은 코드를 자주 짤 필요없이 필요할때만 useToggle()을 불러오면 되겠죠
@@ -38,39 +42,38 @@ React로 개발하다보면, DropDown 이나 Modal같은 것들을 굉장히 자
 외부 클릭 close
 
 ```jsx
-    const useOutside = (fn) => {
-        const ref = useRef();
+const useOutside = (fn) => {
+  const ref = useRef();
 
-        useEffect(() => {
-            const handleClick = (e)=> {
-                if(ref.current && !ref.current.contains(e.target)) {
-                    fn();
-                }
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        fn();
+      }
 
-                document.addEventListener('mousedown', handleClick);
-                return () => document.removeEventListener('mousedown', handleClick);
-            }
-        },[fn]);
-    }
+      document.addEventListener("mousedown", handleClick);
+      return () => document.removeEventListener("mousedown", handleClick);
+    };
+  }, [fn]);
+};
 
-    const Main = () => {
-        const {openHandler, closeHandler} = useToggle();
+const Main = () => {
+  const { openHandler, closeHandler } = useToggle();
 
-        return <Modal closeHandler={closeHandler}/>
+  return <Modal closeHandler={closeHandler} />;
+};
 
-    }
+const Modal = ({ closeHandler }) => {
+  const modalRef = useOutside(closeHandler);
 
-    const Modal = ({closeHandler}) => {
-        const modalRef = useOutside(closeHandler);
-
-        return (
-            <div className="modal">
-                <div ref={modalRef} className="modal-content">
-                    모달
-                </div>
-            </div>
-        );
-    }
+  return (
+    <div className="modal">
+      <div ref={modalRef} className="modal-content">
+        모달
+      </div>
+    </div>
+  );
+};
 ```
 
 이런식으로 사용해서 외부 클릭으로도 닫히게 할수있죠
@@ -81,12 +84,13 @@ React로 개발하다보면, DropDown 이나 Modal같은 것들을 굉장히 자
 또한 직접 만들면 커스텀은 좋지만 검증된 라이브러리를 사용하는방법도 있습니다
 
 [react-modal](https://github.com/reactjs/react-modal)
+
 ```jsx
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <Modal
       isOpen={isOpen}
@@ -107,15 +111,14 @@ function App() {
 
 이런 컴포넌트 라이브러리를 사용해도 좋은 방법입니다.
 
-
 ### 요약
 
-|방법|장점|
-|---|---|
-|useToggle|상태 관리 간소화|
-|useOutsideClick|외부 클릭 처리 자동화|
-|useModal| Promise 기반 간편 사용|
-|라이브러리| 검증된 기능, 접근성|
+| 방법            | 장점                   |
+| --------------- | ---------------------- |
+| useToggle       | 상태 관리 간소화       |
+| useOutsideClick | 외부 클릭 처리 자동화  |
+| useModal        | Promise 기반 간편 사용 |
+| 라이브러리      | 검증된 기능, 접근성    |
 
 방법은 여러가지가 있고 결국 본인이 제일 편한 방법을 사용하는것이 제일 좋을것입니다.
 여러가지 사용해보고, 결정하는것도 좋은 방법이죠

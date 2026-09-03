@@ -7,7 +7,7 @@ export const SITE = {
   lang: "ko",
   locale: "ko_KR",
   author: {
-    name: "Banal",
+    name: "SPBABO",
     email: "spbabo972@gmail.com",
     avatar: "/assets/img/profile.jpg",
     github: "https://github.com/Banal972",
@@ -25,7 +25,6 @@ export const VERIFICATION = {
 export const ADSENSE = {
   client: "ca-pub-2915330933826179",
 } as const;
-
 
 export const NAV = [
   { label: "홈", href: "/" },

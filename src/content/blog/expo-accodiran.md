@@ -21,7 +21,7 @@ Expo 프로젝트에서 고객센터 페이지를 만들다가 **Q.질문입니�
 **LayoutAnimation**를 사용해서 만들어볼려고 합니다.
 
 - **LayoutAnimation란?**
-    - LayoutAnimation는 레이아웃이 변경 시에 자연스러운 애니메이션 효과를 제공하는 API입니다.
+  - LayoutAnimation는 레이아웃이 변경 시에 자연스러운 애니메이션 효과를 제공하는 API입니다.
 
 <br/>
 
@@ -30,45 +30,53 @@ Expo 프로젝트에서 고객센터 페이지를 만들다가 **Q.질문입니�
 ```tsx
 const [isOpen, setIsOpen] = useState(false);
 <View>
-    <TouchableOpacity>
-        <Text>Q.질문입니다.</Text>
-    </TouchableOpacity>
-    {
-        isOpen && <Text>답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다.</Text>
-    }
-</View>
+  <TouchableOpacity>
+    <Text>Q.질문입니다.</Text>
+  </TouchableOpacity>
+  {isOpen && (
+    <Text>
+      답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다.
+      답변입니다. 답변입니다.
+    </Text>
+  )}
+</View>;
 ```
+
 > 해당 UI는 예시로 든것이며 실제로는 제대로 나오지 않을수 있습니다.
 
 <br/>
 
 #### LayoutAnimation 적용하기
-```tsx
-    const [isOpen, setIsOpen] = useState(false);
-    
-    const toggleAccordion = ()=>{
-        LayoutAnimation.configureNext({
-            duration: 300,
-            update: {
-                property: LayoutAnimation.Properties.opacity,
-                type: LayoutAnimation.Types.easeInEaseOut,
-            },
-            delete: {
-                property: LayoutAnimation.Properties.opacity,
-                type: LayoutAnimation.Types.easeInEaseOut,
-            },
-        });
-        setIsOpen(!isOpen)
-    }
 
-    <View>
-        <TouchableOpacity onPress={toggleAccordion}>
-            <Text>Q.질문입니다.</Text>
-        </TouchableOpacity>
-        {
-            isOpen && <Text>답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다.</Text>
-        }
-    </View>
+```tsx
+const [isOpen, setIsOpen] = useState(false);
+
+const toggleAccordion = () => {
+  LayoutAnimation.configureNext({
+    duration: 300,
+    update: {
+      property: LayoutAnimation.Properties.opacity,
+      type: LayoutAnimation.Types.easeInEaseOut,
+    },
+    delete: {
+      property: LayoutAnimation.Properties.opacity,
+      type: LayoutAnimation.Types.easeInEaseOut,
+    },
+  });
+  setIsOpen(!isOpen);
+};
+
+<View>
+  <TouchableOpacity onPress={toggleAccordion}>
+    <Text>Q.질문입니다.</Text>
+  </TouchableOpacity>
+  {isOpen && (
+    <Text>
+      답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다. 답변입니다.
+      답변입니다. 답변입니다.
+    </Text>
+  )}
+</View>;
 ```
 
 `LayoutAnimation`는 기본적으로 `Properties`,`Types`,`linear` 등 여러가지 **Properties**를 가지고 있습니다.
@@ -85,4 +93,5 @@ const [isOpen, setIsOpen] = useState(false);
 <br/>
 
 #### 참고
+
 https://reactnative.dev/docs/layoutanimation#configurenext

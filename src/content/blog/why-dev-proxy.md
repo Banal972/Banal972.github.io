@@ -25,6 +25,7 @@ tags: ["proxy", "vite", "개발 환경"]
 ---
 
 ## 왜 개발 환경에서만 Proxy가 동작할까?
+
 Vite를 예로 들어보겠습니다.  
 Vite는 `vite dev`라는 명령어를 통해 개발 서버(dev server)를 실행합니다.  
 이때 Node.js 기반의 **로컬 개발 서버**가 열리고,  
@@ -62,15 +63,16 @@ Vite의 경우 `vite.config.js` 파일에서 다음과 같이 설정할 수 있�
 export default defineConfig({
   server: {
     proxy: {
-      '/api': {
-        target: 'http://jsonplaceholder.typicode.com',
+      "/api": {
+        target: "http://jsonplaceholder.typicode.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
-    }
-  }
-})
+    },
+  },
+});
 ```
+
 이 설정은 /api로 시작하는 요청을
 http://jsonplaceholder.typicode.com으로 프록시하도록 만듭니다.
 
@@ -87,6 +89,7 @@ http://jsonplaceholder.typicode.com으로 프록시하도록 만듭니다.
 ---
 
 ### Production 환경에서는 왜 안 될까?
+
 Production 환경에서는 개발 서버가 존재하지 않습니다.
 즉, 정적 파일(HTML, JS, CSS 등)만 배포되고,
 브라우저가 직접 백엔드 서버로 요청을 보내게 됩니다.

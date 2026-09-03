@@ -38,12 +38,12 @@ const [err,setErr] = useState(); // 에러를 넣어둘 state
 useEffect(()=>{
 
 	const { geolocation } = navigator; // navigator의 geolocation을 가져옵니다.
-    
+
     if(!geolocation){
     	// geolocation을 가져올수 없으면 에러를 보냅니다.
         setErr({code : 0, message : "오류가 발생했습니다."});
     }
-    
+
 },[])
 ```
 
@@ -142,7 +142,7 @@ export default function App() {
 
 	const [location, setLocation] = useState();
   	const [err, setErr] = useState();
-    
+
     function 성공함수(pos: GeolocationPosition) {
     	/*
         	성공했을때 반환되는 값은 총 2개 입니다.
@@ -152,7 +152,7 @@ export default function App() {
         const { coords } = pos;
         setLocation(coords);
   	}
-    
+
   	function 실패함수(error: GeolocationPositionError) {
     	/*
       		에러가 발생했을때는 code 값 과 message을 반환해줍니다.
@@ -163,7 +163,7 @@ export default function App() {
     	*/
         setErr(error);
   	}
-    
+
     useEffect(()=>{
         const { geolocation } = navigator; // navigator의 geolocation을 가져옵니다.
 

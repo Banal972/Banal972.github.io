@@ -20,7 +20,7 @@ tags: ["번들 최적화", "Firebase", "성능 최적화", "서비스워커"]
 그리고 그 훅의 첫 줄이 이랬습니다.
 
 ```ts
-import { getPushNotificationTokenIfGranted } from '@/lib/push/messaging'
+import { getPushNotificationTokenIfGranted } from "@/lib/push/messaging";
 ```
 
 평범해 보이시죠. 저도 그랬습니다.
@@ -48,7 +48,7 @@ AppInit → use-push-notification-token → messaging.ts → firebase/app + fire
 
 ```ts
 if (!isNotificationPermissionGranted()) {
-  return
+  return;
 }
 // 여기서만 firebase 함수를 호출
 ```
@@ -100,12 +100,16 @@ if (!isNotificationPermissionGranted()) {
 // 이 훅은 전 페이지 공통으로 돈다. firebase SDK 를 정적으로 import 하면
 // 공통 청크에 통째로 실려 모든 방문자가 대가를 치르므로 동적 import 로 미룬다.
 if (!isNotificationPermissionGranted()) {
-  return
+  return;
 }
 
-void import('@/lib/push/messaging')
-  .then(({ getPushNotificationTokenIfGranted }) => getPushNotificationTokenIfGranted())
-  .then((token) => { /* ... */ })
+void import("@/lib/push/messaging")
+  .then(({ getPushNotificationTokenIfGranted }) =>
+    getPushNotificationTokenIfGranted(),
+  )
+  .then((token) => {
+    /* ... */
+  });
 ```
 
 여기서 `isNotificationPermissionGranted()`는 이게 전부입니다.
@@ -113,7 +117,7 @@ void import('@/lib/push/messaging')
 ```ts
 /** 알림 권한이 이미 허용된 상태인지. firebase 를 로드하기 전에 값싸게 걸러내는 용도다. */
 export function isNotificationPermissionGranted() {
-  return getNotificationApi()?.permission === 'granted'
+  return getNotificationApi()?.permission === "granted";
 }
 ```
 
@@ -122,8 +126,8 @@ export function isNotificationPermissionGranted() {
 
 ```ts
 // 사용자가 버튼을 누른 시점에만 firebase 를 로드한다.
-const { requestPushNotificationToken } = await import('@/lib/push/messaging')
-const token = await requestPushNotificationToken()
+const { requestPushNotificationToken } = await import("@/lib/push/messaging");
+const token = await requestPushNotificationToken();
 ```
 
 ---
@@ -144,15 +148,31 @@ const token = await requestPushNotificationToken()
 // 실제로 쓰는 weight 만 남긴다.
 const pretendard = localFont({
   src: [
-    { path: '…/Pretendard-Regular.subset.woff2',   weight: '400', style: 'normal' },
-    { path: '…/Pretendard-Medium.subset.woff2',    weight: '500', style: 'normal' },
-    { path: '…/Pretendard-SemiBold.subset.woff2',  weight: '600', style: 'normal' },
-    { path: '…/Pretendard-Bold.subset.woff2',      weight: '700', style: 'normal' },
-    { path: '…/Pretendard-ExtraBold.subset.woff2', weight: '800', style: 'normal' },
+    {
+      path: "…/Pretendard-Regular.subset.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "…/Pretendard-Medium.subset.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "…/Pretendard-SemiBold.subset.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    { path: "…/Pretendard-Bold.subset.woff2", weight: "700", style: "normal" },
+    {
+      path: "…/Pretendard-ExtraBold.subset.woff2",
+      weight: "800",
+      style: "normal",
+    },
   ],
-  variable: '--font-pretendard',
-  display: 'swap',
-})
+  variable: "--font-pretendard",
+  display: "swap",
+});
 ```
 
 실제 참조처를 찾아보니 100/200/300/900은 쓰는 곳이 한 군데도 없었습니다. 전부 지웠습니다.
@@ -163,11 +183,11 @@ const pretendard = localFont({
 // 이 폰트는 일부 안내 화면의 키워드에서만, 그것도 700 하나만 쓴다.
 // 전 페이지에서 preload 할 이유가 없으므로 해당 화면에 들어갔을 때만 받게 한다.
 const displayFont = localFont({
-  src: [{ path: '…/display-bold.woff2', weight: '700', style: 'normal' }],
-  variable: '--font-display',
-  display: 'swap',
+  src: [{ path: "…/display-bold.woff2", weight: "700", style: "normal" }],
+  variable: "--font-display",
+  display: "swap",
   preload: false,
-})
+});
 ```
 
 `preload: false`가 **폰트를 안 쓴다는 뜻은 아닙니다.** 초기 preload 링크를 안 넣는다는 뜻이고, 해당 화면에서 실제로 필요해지면 그때 받습니다.
@@ -185,8 +205,8 @@ const displayFont = localFont({
 // sw.js 는 정적 파일이라 빌드 타임 env 를 못 읽으므로 쿼리로 주입한다.
 // 모든 register 호출이 동일한 URL 을 써야 스코프(/)에 단일 등록이 유지된다.
 const SERVICE_WORKER_URL = `/sw.js?apiBaseUrl=${encodeURIComponent(
-  API_BASE_URL
-)}&icon=${encodeURIComponent(site.brand.icon192)}`
+  API_BASE_URL,
+)}&icon=${encodeURIComponent(site.brand.icon192)}`;
 ```
 
 `sw.js` 안에서는 `new URL(self.location).searchParams`로 읽으면 됩니다.

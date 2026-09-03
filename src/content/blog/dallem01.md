@@ -6,29 +6,33 @@ tags: ["RSC", "jest", "테스트"]
 ---
 
 ## 문제 정의
+
 Next.js에서 Jest를 사용할때 RSC에 async를 붙일경우 에러가 발생하는 오류를 발견하였습니다.
 
-
 async를 붙이기전
+
 ```jsx
 export default function Page() {
   return <h1>App Router</h1>;
 }
 ```
+
 <!-- ![img01](/posts/dallem01/dallem01-01.png) -->
 
-
 async 붙인후
+
 ```jsx
 export default async function Page() {
   return <h1>App Router</h1>;
 }
 ```
+
 <!-- ![img02](/posts/dallem01/dallem01-02.png) -->
 
 <br/><br/>
 
 ## 문제 원인
+
 찾아보니 이는 react-testing-library에서 RSC에 대한 지원을 하지 않기 때문에 발생하는 오류 였습니다.
 
 [NextJs 공식홈페이지](https://nextjs.org/docs/app/building-your-application/testing/jest)
@@ -42,6 +46,7 @@ export default async function Page() {
 의외로 간단한 해결방안이 있습니다.
 
 바로 render 에서 해당 컴포넌트를 불러올때 await을 붙여 함수형태로 불러오면 간단하게 해결이 됩니다.
+
 ```jsx
 it("App Router: Works with Server Components", async () => {
   render(await Page());
@@ -49,12 +54,12 @@ it("App Router: Works with Server Components", async () => {
 });
 ```
 
-
 단 async가 붙은 RSC 컴포넌트안에 또 async가 붙어있는 컴포넌트가 존재한다면 그것은 테스트 하기 힘들것 같습니다.
 
 <br/><br/>
 
 ## 그렇다면 이것은 좋은 방법일까?
+
 [NextJs 공식 홈페이지](https://nextjs.org/docs/app/building-your-application/testing/jest)
 
 NextJS의 공식 홈페이지에서는 해당 기능을 Jest에서 지원해주고 있지 않기 때문에 비동기 컴포넌트에서는 E2E 테스트를 사용하는 것을 권장한다고 나와 있습니다.

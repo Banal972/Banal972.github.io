@@ -6,6 +6,7 @@ tags: ["expo", "지도", "트러블슈팅"]
 ---
 
 ### 개요
+
 Expo SDK 52 버전에서 MapView안에 Map Marker를 띄울때 처음엔 문제가 없지만 재랜더링 되거나
 변동이 생길경우 앱 충돌이 나면서 앱이 꺼져버리거나 오류가 발생하는 경우가 생겼습니다.
 
@@ -15,7 +16,7 @@ Expo SDK 52 버전에서 MapView안에 Map Marker를 띄울때 처음엔 문제�
 
 ### 문제 해결법
 
-Expo SDK 52에는 `newArchEnabled`라는 새로운 옵션이 생겼는데 
+Expo SDK 52에는 `newArchEnabled`라는 새로운 옵션이 생겼는데
 `newArchEnabled`는 JSI 기반으로 동작하여 성능을 향상 시키는 옵션을 제공한다고 합니다.
 
 성능 향상을 위해서 Expo SDK 52에서는 `newArchEnabled`를 true로 해서 사용하라고 권장을 하는데
@@ -27,7 +28,7 @@ react-native-maps에서는 아직 이 새로운 아키텍처와 충돌이 발생
 ```json
 {
   "expo": {
-    "newArchEnabled": false,
+    "newArchEnabled": false
   }
 }
 ```

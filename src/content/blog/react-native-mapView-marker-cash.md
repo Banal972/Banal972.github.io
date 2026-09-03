@@ -6,11 +6,13 @@ tags: ["지도", "크래시", "트러블슈팅"]
 ---
 
 ### 참고버전
+
 expo 53<br/>
 react-native 0.79<br/>
 react 19.0.0
 
 ### 이슈
+
 이번 프로젝트 같은 경우 Expo 혹은 React-Native로 개발을 하였고 맵뷰 와 마커를 이용해서 해당 위치에 마커를 구성해줘야하는 일이 생겼습니다.<br/>
 Expo는 SDK 53, react-Native는 0.79 이상을 사용했습니다.<br/>
 MapView는 자연스럽게 나오고 Marker도 동일하게 처음 불러왔을 경우 문제없이 잘 찍히는것을 볼 수 있었습니다. <br/>
@@ -21,7 +23,6 @@ react-native-maps *** -[__nsarraym insertobject:atindex:]: index 15 beyond bound
 ```
 
 라는 오류와 함께 앱이 크래시가 나면서 튕기는 현상을 간혹가다 볼 수 있습니다.
-
 
 ### 이슈해결
 
@@ -39,6 +40,6 @@ npx expo install --fix
 --fix를 해줄경우 저 같은 경우 react-native-maps 1.20.1 을 설치가 되었고 해당 문제로 빌드를 다시 해본결과<br/>
 오류를 해결할 수 있었습니다.
 
-
 #### 참고자료
+
 [https://github.com/react-native-maps/react-native-maps/issues/5345](https://github.com/react-native-maps/react-native-maps/issues/5345)

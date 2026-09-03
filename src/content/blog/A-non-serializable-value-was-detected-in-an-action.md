@@ -14,16 +14,15 @@ A non-serializable value was detected in an action, in the path: `payload.Compon
     let { isOpen, onClose } = param;
     _s();
     const { register, handleSubmit } = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)();
-    const router = (0,next_navigation_… 
-Take a look at the logic that dispatched this action:  
+    const router = (0,next_navigation_…
+Take a look at the logic that dispatched this action:
 {type: 'modal/open', payload: {…}}
- 
-(See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants) 
+
+(See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants)
 (To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)
 ```
 
 해당 오류
-
 
 <br/>
 

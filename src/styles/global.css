@@ -14,10 +14,11 @@
 
 :root {
   --font-sans:
-    'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI',
-    'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   --font-mono:
-    'SFMono-Regular', ui-monospace, 'JetBrains Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+    'SFMono-Regular', ui-monospace, 'JetBrains Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
 
   --bg: #ffffff;
   --bg-subtle: #f6f6f8;
@@ -31,8 +32,10 @@
   --accent: #4b3bff;
   --accent-soft: #eeecff;
   --accent-text: #4b3bff;
-  --shadow-card: 0 1px 2px rgb(20 22 30 / 4%), 0 8px 24px -12px rgb(20 22 30 / 12%);
-  --shadow-lift: 0 2px 4px rgb(20 22 30 / 6%), 0 18px 40px -16px rgb(20 22 30 / 22%);
+  --shadow-card:
+    0 1px 2px rgb(20 22 30 / 4%), 0 8px 24px -12px rgb(20 22 30 / 12%);
+  --shadow-lift:
+    0 2px 4px rgb(20 22 30 / 6%), 0 18px 40px -16px rgb(20 22 30 / 22%);
 
   --radius-sm: 8px;
   --radius: 12px;

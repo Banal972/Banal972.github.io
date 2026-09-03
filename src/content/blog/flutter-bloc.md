@@ -20,14 +20,15 @@ BLoC Pattern을 이미지로 보여주기에 가장 적절해서 가져와봤습
 
 ### BLoC Pattern 구성법
 
-BLoC Pattern은 간단하게 
+BLoC Pattern은 간단하게
+
 - Event
-    - 사용자가 UI에서 발생시키는 액션 위주
+  - 사용자가 UI에서 발생시키는 액션 위주
 - State
-    - BLoC에서 처리되거나 관리되는 상태
-    - UI에서 이 부분을 구독하여 화면을 렌더링 합니다.
+  - BLoC에서 처리되거나 관리되는 상태
+  - UI에서 이 부분을 구독하여 화면을 렌더링 합니다.
 - BLoC
-    - stream를 활용해서 데이터를 관리합니다.
+  - stream를 활용해서 데이터를 관리합니다.
 
 로 구성 되어있다고 보면 될것 같습니다.
 
@@ -57,14 +58,17 @@ Class Bloc {
 }
 ```
 
-간략하게 subject를 설명하면 
+간략하게 subject를 설명하면
 `late BehaviorSubject<int> subject;`
+
 - 상태 값을 저장하는 BehaviorSubject를 선언
 
 `Stream<int> get stream => _instance.subject.stream;`
+
 - stream은 외부에서 데이터 변경 사항을 구독할 수 있도록 스트림을 제공
 
 `int get items => _instance.subject.valueOrNull ?? 0;`
+
 - items는 현재 저장된 상태 값을 반환하고 값이 없을 경우 기본값 0을 반환
 
 ```dart
@@ -72,6 +76,7 @@ Class Bloc {
         _instance.subject.sink.add(number);
     }
 ```
+
 change 메서드는 새로운 데이터를 subject에 추가 후 스트림을 통해 방출
 
 이렇게 볼 수 있고
@@ -85,11 +90,13 @@ factory Bloc() => _instance;
         subject = BehaviorSubject<int>(); // 초기화
     }
 ```
+
 _internal은 생성자로 외부에서 직접 호출할 수 없지만 이는 클래스 내부에서만 사용되며 싱글턴 인스턴스를 초기화하는 역할을 하게 됩니다.
 
 <br/>
 
 ### 실제 사용 예
+
 ```dart
 final Bloc bloc = Bloc();
 bloc.stream.listen((value) {

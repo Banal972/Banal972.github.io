@@ -1,6 +1,6 @@
-import type { APIRoute, GetStaticPaths } from 'astro';
+import type { APIRoute, GetStaticPaths } from "astro";
 
-import { renderOgImage, ogResponse } from '~/lib/og';
+import { renderOgImage, ogResponse } from "~/lib/og";
 import {
   categoryHue,
   categoryLabel,
@@ -8,7 +8,7 @@ import {
   getPosts,
   primaryCategory,
   type Post,
-} from '~/lib/posts';
+} from "~/lib/posts";
 
 /** 글마다 소셜 공유용 이미지를 빌드 타임에 그린다. 기존 글에는 대표 이미지가 없어서 필요하다. */
 export const getStaticPaths: GetStaticPaths = async () => {

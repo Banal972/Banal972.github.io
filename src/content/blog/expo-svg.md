@@ -6,10 +6,13 @@ tags: ["expo", "svg"]
 ---
 
 #### 개요
+
 Expo의 프로젝트를 진행중에 SVG를 사용해서 ICON를 관리를 할 필요가 생겼고
+
 ```tsx
 <Image source={require("경로")}>
 ```
+
 이와 같이 svg를 불러와도 불러와지지 않다는것을 발견했고 SVG는 따로 패키지들을 설치해줄 필요가 있다는걸 알았습니다.
 
 <br/>
@@ -19,14 +22,30 @@ Expo의 프로젝트를 진행중에 SVG를 사용해서 ICON를 관리를 할 �
 expo에서 SVG를 사용하기 위해서는 첫번째로 `react-native-svg`라는 패키지가 필요합니다.
 
 `react-native-svg`패키지는 React-Native에서 Svg의 태그를 사용할 수있게 해줍니다.
+
 ```tsx
-import Svg, { Circle, Rect } from 'react-native-svg';
+import Svg, { Circle, Rect } from "react-native-svg";
 
 export default function SvgComponent(props) {
   return (
     <Svg height="50%" width="50%" viewBox="0 0 100 100" {...props}>
-      <Circle cx="50" cy="50" r="45" stroke="blue" strokeWidth="2.5" fill="green" />
-      <Rect x="15" y="15" width="70" height="70" stroke="red" strokeWidth="2" fill="yellow" />
+      <Circle
+        cx="50"
+        cy="50"
+        r="45"
+        stroke="blue"
+        strokeWidth="2.5"
+        fill="green"
+      />
+      <Rect
+        x="15"
+        y="15"
+        width="70"
+        height="70"
+        stroke="red"
+        strokeWidth="2"
+        fill="yellow"
+      />
     </Svg>
   );
 }
@@ -37,6 +56,7 @@ export default function SvgComponent(props) {
 `react-native-svg-transformer`패키지는 SVG파일을 React와 호환할 수 있도록 컴포넌트화 시켜줍니다.
 
 `react-native-svg-transformer`를 사용하기 위해서는 `metro.config.js`를 수정해줘야 합니다.
+
 ```
 const { getDefaultConfig } = require("expo/metro-config");
 
@@ -58,15 +78,15 @@ module.exports = (() => {
   return config;
 })();
 ```
+
 이 방식은 `Expo SDK v41.0.0` 이후 버전 에서 적용하는 방식이며
 
 [다른 방식](https://github.com/kristerkari/react-native-svg-transformer)은 여기서 참고해주세요
 
-
 모든 설치가 완료 되었다면
 
 ```tsx
-import Logo from './assets/logo.svg';
+import Logo from "./assets/logo.svg";
 
 <Logo width={120} height={40} />;
 ```
@@ -76,5 +96,6 @@ import Logo from './assets/logo.svg';
 <br/>
 
 #### 참고
+
 https://github.com/software-mansion/react-native-svg
 https://github.com/kristerkari/react-native-svg-transformer

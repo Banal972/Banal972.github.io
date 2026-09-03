@@ -6,6 +6,7 @@ tags: ["모달", "ref"]
 ---
 
 ### 개요
+
 React-Native에서 모달을 만드는 방식은 여러가지가 있습니다.
 
 Modal 컴포넌트를 이용해서 해당 컴포넌트 안에서 작성을 하거나
@@ -28,6 +29,7 @@ React.Portal( React-Native 가 아닌 경우 )등 여러가지가 있을겁니�
 ### 구현 방식 과 원리
 
 구현에는 `createRef()`와 `useState()`을 사용했습니다.
+
 ```jsx
     const modalRef = createRef();
 
@@ -42,7 +44,7 @@ React.Portal( React-Native 가 아닌 경우 )등 여러가지가 있을겁니�
         }));
 
         return(
-            <Modal  
+            <Modal
                 animationType="fade"
                 transparent
                 visible={modalVisible}
@@ -71,8 +73,8 @@ React.Portal( React-Native 가 아닌 경우 )등 여러가지가 있을겁니�
 물론 이제 React 19버전에서는 `forwardRef`을 사용하지 않아도 됩니다.
 
 ```jsx
-    const MyModal = () => <ModalRoot ref={modalRef} />;
-    MyModal.show = () => modalRef.current.show();
+const MyModal = () => <ModalRoot ref={modalRef} />;
+MyModal.show = () => modalRef.current.show();
 ```
 
 그리고 저는 `MyModal`라는 변수를 마들어서 `ModalRoot`에 ref로 createRef로 만들어둔 ref을 전달했고
@@ -83,22 +85,22 @@ React.Portal( React-Native 가 아닌 경우 )등 여러가지가 있을겁니�
 ### 실제 사용예
 
 ```jsx
-    import QuitModal from '@hooks/modal/useQuitModal';
-    <View>
-        <ScreenOne/>
-        <ScreenTwo/>
-        <QuitModal />
-    </View>
+import QuitModal from "@hooks/modal/useQuitModal";
+<View>
+  <ScreenOne />
+  <ScreenTwo />
+  <QuitModal />
+</View>;
 ```
 
-그럼 이제 이렇게 QuitModal을 불러와서 적용해주고  ScreenOne, ScreenTwo 안에서는
+그럼 이제 이렇게 QuitModal을 불러와서 적용해주고 ScreenOne, ScreenTwo 안에서는
 
 ```jsx
-    <View>
-        <TouchableOpacity onPress={QuitModal.show}>
-            <Text>모달 오픈</Text>
-        </TouchableOpacity>
-    </View>
+<View>
+  <TouchableOpacity onPress={QuitModal.show}>
+    <Text>모달 오픈</Text>
+  </TouchableOpacity>
+</View>
 ```
 
 이렇게 사용하면 어디서든지 불러올수 있게 됩니다.

@@ -65,13 +65,11 @@ Editor 의 props는 Toast-ui의 참고하실수있습니다.
   height="100%"
   hideModeSwitch={true}
   initialEditType="wysiwyg"
-  toolbarItems={
-    [
-      ['heading', 'bold'],
-      ['ul', 'ol'],
-      ['code', 'codeblock'],
-    ]
-  }
+  toolbarItems={[
+    ["heading", "bold"],
+    ["ul", "ol"],
+    ["code", "codeblock"],
+  ]}
 />
 ```
 
@@ -92,44 +90,46 @@ Editor 의 props는 Toast-ui의 참고하실수있습니다.
 ### 에디터에 작성한글을 HTML로 가져와서 서버에 요청을 보내봅시다
 
 ```tsx
-  const editorRef = useRef<Editor>(null);
-  const [getContent, setGetContent] = useState("");
+const editorRef = useRef<Editor>(null);
+const [getContent, setGetContent] = useState("");
 
-  const onSubmit : FormEventHandler<HTMLFormElement> = (event)=>{
-    event.preventDefault();
+const onSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  event.preventDefault();
 
-    const content = editorRef.current?.getInstance().getHTML();
+  const content = editorRef.current?.getInstance().getHTML();
 
-    setGetContent(content);
+  setGetContent(content);
+};
 
-  }
-
-  return (
-    <main className="h-screen flex flex-col gap-9 items-center justify-center">
-      <form onSubmit={onSubmit} className="text-center">
-        <h2 className="text-center text-2xl">Toast ui</h2>
-        <div className="bg-white h-[500px] w-[750px] mt-9 text-left">
-          <Editor
-            ref={editorRef}
-            height="100%"
-            hideModeSwitch={true}
-            initialEditType="wysiwyg"
-            initialValue=" "
-            toolbarItems={
-              [
-                ['heading', 'bold'],
-                ['ul', 'ol'],
-                ['code', 'codeblock'],
-              ]
-            }
-          />
-        </div>
-        <button type="submit" className="text-base bg-black text-white py-2 px-5 rounded-full mt-9">서버에 전달</button>
-      </form>
-      <p>출력된 HTML</p>
-      {getContent}
-    </main>
-  );
+return (
+  <main className="h-screen flex flex-col gap-9 items-center justify-center">
+    <form onSubmit={onSubmit} className="text-center">
+      <h2 className="text-center text-2xl">Toast ui</h2>
+      <div className="bg-white h-[500px] w-[750px] mt-9 text-left">
+        <Editor
+          ref={editorRef}
+          height="100%"
+          hideModeSwitch={true}
+          initialEditType="wysiwyg"
+          initialValue=" "
+          toolbarItems={[
+            ["heading", "bold"],
+            ["ul", "ol"],
+            ["code", "codeblock"],
+          ]}
+        />
+      </div>
+      <button
+        type="submit"
+        className="text-base bg-black text-white py-2 px-5 rounded-full mt-9"
+      >
+        서버에 전달
+      </button>
+    </form>
+    <p>출력된 HTML</p>
+    {getContent}
+  </main>
+);
 ```
 
 ref을 이용해서 Editor을 가져와주고 getInstance() 을 사용해서 Editor의 인스턴스를 가져옵니다.
@@ -150,12 +150,10 @@ Viewer는 그냥 Editor의 내용을 그대로 가져오는것뿐입니다.
 
 ```tsx
 <div className="mt-28">
-    <h2 className="text-center text-2xl">Toast ui - Viewer</h2>
-    <div className="bg-white h-[500px] w-[750px] mt-9 text-left border border-[#ddd]">
-      <Viewer
-        height="100%"
-      />
-    </div>
+  <h2 className="text-center text-2xl">Toast ui - Viewer</h2>
+  <div className="bg-white h-[500px] w-[750px] mt-9 text-left border border-[#ddd]">
+    <Viewer height="100%" />
+  </div>
 </div>
 ```
 
@@ -165,13 +163,10 @@ Viewer는 그냥 Editor의 내용을 그대로 가져오는것뿐입니다.
 
 ```tsx
 <div className="mt-28">
-    <h2 className="text-center text-2xl">Toast ui - Viewer</h2>
-    <div className="bg-white h-[500px] w-[750px] mt-9 text-left border border-[#ddd]">
-      <Viewer
-        height="100%"
-        initialValue={getContent}
-      />
-    </div>
+  <h2 className="text-center text-2xl">Toast ui - Viewer</h2>
+  <div className="bg-white h-[500px] w-[750px] mt-9 text-left border border-[#ddd]">
+    <Viewer height="100%" initialValue={getContent} />
+  </div>
 </div>
 ```
 
