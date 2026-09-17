@@ -27,6 +27,9 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # rehype-mermaid 가 빌드 중 Chromium 으로 도표를 렌더링한다.
+      # --with-deps 로 러너에 없는 시스템 라이브러리와 폰트(한글 포함)까지 함께 설치한다.
+      - run: npx playwright install --with-deps chromium
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

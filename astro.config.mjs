@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import { unified } from "@astrojs/markdown-remark";
 import remarkCjkFriendly from "remark-cjk-friendly";
+import rehypeMermaid from "rehype-mermaid";
 
 export default defineConfig({
   // 커스텀 도메인을 붙이면 이 값만 바꾸면 된다. (src/consts.ts 의 SITE.url 도 같이)
@@ -26,7 +27,14 @@ export default defineConfig({
     // Jekyll(kramdown) 에서는 렌더링되던 부분이라, remark 파이프라인 + CJK 보정 플러그인을 쓴다.
     processor: unified({
       remarkPlugins: [remarkCjkFriendly],
+      // ```mermaid 블록을 빌드 시점에 SVG 로 굽는다. 렌더링에 Playwright(Chromium)가 필요하다.
+      // 테마 전환이 data-theme 기반이라 prefers-color-scheme 용 `dark` 옵션 대신 CSS 로 다크 처리한다.
+      rehypePlugins: [
+        [rehypeMermaid, { strategy: "img-svg", mermaidConfig: { theme: "neutral" } }],
+      ],
     }),
+    // Shiki 가 mermaid 블록을 먼저 하이라이팅해 버리면 rehype-mermaid 가 찾지 못한다.
+    syntaxHighlight: { type: "shiki", excludeLangs: ["math", "mermaid"] },
     shikiConfig: {
       themes: { light: "github-light", dark: "github-dark-dimmed" },
       wrap: false,

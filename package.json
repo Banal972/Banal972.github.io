@@ -16,6 +16,8 @@
     "@astrojs/rss": "^4.0.19",
     "@resvg/resvg-js": "^2.6.2",
     "astro": "^7.2.6",
+    "playwright": "^1.63.0",
+    "rehype-mermaid": "^3.0.0",
     "remark-cjk-friendly": "^2.3.1",
     "satori": "^0.33.4"
   }

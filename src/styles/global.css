@@ -358,6 +358,22 @@ hr {
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
+/* rehype-mermaid 가 빌드 시 구운 도표 (`<img id="mermaid-N">`) */
+.prose img[id^='mermaid-'] {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-block: 1.75em;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+}
+
+/* neutral 테마는 흑백 계열이라 반전만으로 다크 모드에 자연스럽게 맞는다 */
+:root[data-theme='dark'] .prose img[id^='mermaid-'] {
+  filter: invert(0.88) hue-rotate(180deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
