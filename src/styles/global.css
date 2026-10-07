@@ -327,8 +327,14 @@ hr {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.9375rem;
-  display: block;
-  overflow-x: auto;
+}
+
+/* display: block은 표가 내용 폭으로 줄어들어서, 가로 스크롤이 필요한 모바일에서만 사용 */
+@media (max-width: 640px) {
+  .prose table {
+    display: block;
+    overflow-x: auto;
+  }
 }
 
 .prose th,
