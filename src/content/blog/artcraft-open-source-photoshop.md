@@ -3,7 +3,6 @@ title: "포토샵이 오픈소스로 나왔다고? ArtCraft 직접 써본 후기
 date: 2026-10-07
 categories: ["Blog"]
 tags: ["ArtCraft", "PhotoCraft", "Photoshop", "Rust", "AI", "오픈소스"]
-draft: true
 ---
 
 요즘은 어떤일이 있나 보다 이런 글이 자주 보였습니다.
